@@ -1,11 +1,11 @@
 build: false
 clone_depth: 1
-clone_folder: c:\projects\symfony-demo
+clone_folder: c:\projects\symfony-zedisplaycore
 
 cache:
     - '%LOCALAPPDATA%\Composer\files'
     - '%LOCALAPPDATA%\SymfonyBridge\phpunit'
-    - c:\projects\symfony-demo\composer.phar
+    - c:\projects\symfony-zedisplaycore\composer.phar
 
 init:
     - SET PATH=c:\php;%PATH%
@@ -41,7 +41,7 @@ install:
     - echo extension=php_pdo_sqlite.dll >> php.ini
     - echo extension=php_curl.dll >> php.ini
     - echo curl.cainfo=c:\php\cacert.pem >> php.ini
-    - cd c:\projects\symfony-demo
+    - cd c:\projects\symfony-zedisplaycore
     - IF NOT EXIST composer.phar (appveyor DownloadFile https://getcomposer.org/download/1.3.0/composer.phar)
     - php composer.phar self-update
     - IF %APPVEYOR_REPO_BRANCH%==master (SET COMPOSER_ROOT_VERSION=dev-master) ELSE (SET COMPOSER_ROOT_VERSION=%APPVEYOR_REPO_BRANCH%.x-dev)
@@ -50,5 +50,5 @@ install:
     - vendor\bin\simple-phpunit install
 
 test_script:
-    - cd c:\projects\symfony-demo
+    - cd c:\projects\symfony-zedisplaycore
     - vendor/bin/simple-phpunit
