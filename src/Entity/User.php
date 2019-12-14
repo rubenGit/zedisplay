@@ -78,6 +78,12 @@ class User implements UserInterface, \Serializable
      */
     private $roles = [];
 
+    /**
+     * @Assert\NotNull
+     * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="users")
+     */
+    private $client;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -123,6 +129,17 @@ class User implements UserInterface, \Serializable
         $this->password = $password;
     }
 
+    public function getClient(): ?Client
+    {
+        return $this->client;
+    }
+
+    public function setClient(?Client $client): self
+    {
+        $this->client = $client;
+
+        return $this;
+    }
     /**
      * Returns the roles or permissions granted to the user for security.
      */
