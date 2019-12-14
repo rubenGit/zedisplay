@@ -40,6 +40,16 @@ class User implements UserInterface, \Serializable
     private $id;
 
     /**
+     * @ORM\Column(type="boolean", length=255, nullable=true)
+     */
+    private $superAdminSupreme;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $enabled;
+
+    /**
      * @var string
      *
      * @ORM\Column(type="string")
@@ -83,6 +93,17 @@ class User implements UserInterface, \Serializable
      * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="users")
      */
     private $client;
+
+    /**
+     * User constructor.
+     * @param $id
+     */
+    public function __construct()
+    {
+        $this->enabled = true;
+        $this->superAdminSupreme = false;
+    }
+
 
     public function getId(): ?int
     {
@@ -201,5 +222,29 @@ class User implements UserInterface, \Serializable
     {
         // add $this->salt too if you don't use Bcrypt or Argon2i
         [$this->id, $this->username, $this->password] = unserialize($serialized, ['allowed_classes' => false]);
+    }
+
+    public function getSuperAdminSupreme(): ?bool
+    {
+        return $this->superAdminSupreme;
+    }
+
+    public function setSuperAdminSupreme(?bool $superAdminSupreme): self
+    {
+        $this->superAdminSupreme = $superAdminSupreme;
+
+        return $this;
+    }
+
+    public function getEnabled(): ?bool
+    {
+        return $this->enabled;
+    }
+
+    public function setEnabled(bool $enabled): self
+    {
+        $this->enabled = $enabled;
+
+        return $this;
     }
 }

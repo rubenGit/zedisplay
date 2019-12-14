@@ -31,4 +31,27 @@ class UserRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, User::class);
     }
+
+    public function totalUsersOfClient($idClient)
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.client = :val')
+            ->setParameter('val', $idClient)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+    
+    public function loadUserByUsername($usernameOrEmail)
+    {
+        return $this->createQuery(
+            'SELECT u
+                FROM App\Entity\User u
+                WHERE u.username = :query
+                OR u.email = :query'
+        )
+            ->setParameter('query', $usernameOrEmail)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }

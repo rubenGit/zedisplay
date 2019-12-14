@@ -1,0 +1,168 @@
+easy_admin:
+    site_name: '[zeDisplay]'
+    design:
+        menu:
+            - { label: 'Dashboard', route: 'dashboard', icon: 'dashboard', default: true }
+            - { entity: 'User', icon: 'user', role:  ROLE_SUPER_ADMIN}
+            - { entity: 'Client', icon: 'user-o', role: ROLE_SUPER_ADMIN }
+            - { entity: 'GroupCompany', icon: 'circle' , role: ROLE_SUPER_ADMIN }
+            - { entity: 'Establishment', icon: 'building', role:  ROLE_SUPER_ADMIN }
+            - { entity: 'Device', icon: 'tv', role: [ROLE_ADMIN, ROLE_SUPER_ADMIN]}
+            - { entity: 'Content', icon: 'book', role: [ROLE_ADMIN, ROLE_SUPER_ADMIN] }
+
+        assets:
+            favicon: '/build/images/favicon.png'
+            js:
+                # By default, EasyAdminBundle embeds a limited version of Bootstrap JS.
+                # For collapsible form filters to work, a full version should be added:
+                - 'bundles/easyadmin/bootstrap-all.js'
+            css:
+                - 'bundles/easyadmin/bootstrap-all.css'
+        brand_color: '#79cc42'
+    list:
+        actions:
+            - { name: 'show', icon: 'search', label: '' }
+            - { name: 'edit', icon: 'pencil', label: '' }
+            - { name: 'delete', icon: 'trash', label: '' }
+    entities:
+        # List the entity class name you want to manage
+        User:
+            class: App\Entity\User
+#            templates:
+#                list: 'admin/post/list.html.twig'
+
+            list:
+                form_filters:
+                    - { property: client, label: 'Client' }
+                fields:
+                    - name
+                    - client
+                    - username
+                    - email
+                    - created
+            show:
+                fields:
+                    - name
+                    - username
+                    - email
+                    - created
+                    - updated
+                    - lastLogin
+                    - roles
+            form:
+                fields:
+                    - name
+                    - username
+                    - email
+                    - client
+                    # if administrators are allowed to edit users' passwords and roles, add this:
+                    - { property: 'plainPassword', type: 'text', type_options: { required: false } }
+                    - { property: 'roles', type: 'choice', type_options: { multiple: true, choices: { 'ADMINISTRADOR': 'ROLE_SUPER_ADMIN', 'USUARIO BASICO': 'ROLE_ADMIN' } } }
+            delete:
+                role: ROLE_SUPER_ADMIN
+
+        Client:
+            class: App\Entity\Client
+            disabled_actions: ['new','delete']
+            list:
+                fields:
+                    - id
+                    - name
+                    - contactPersonEmail
+            form:
+                fields:
+                    - name
+                    - companyName
+                    - taxId
+                    - address
+                    - city
+                    - postalCode
+                    - state
+                    - { property: 'country', type: 'country' }
+                    - contactPersonName
+                    - contactPersonPhone
+                    - contactPersonEmail
+            delete:
+                role: ROLE_SUPER_ADMIN
+
+        GroupCompany:
+            class: App\Entity\GroupCompany
+            list:
+                fields:
+                    - name
+
+            form:
+                role: ROLE_SUPER_ADMIN
+                fields:
+                    - name
+            delete:
+                role:  ROLE_SUPER_ADMIN
+
+        Establishment:
+            class: App\Entity\Establishment
+            list:
+                fields:
+                    - groupCompany
+                    - name
+            show:
+                fields:
+                    - groupCompany
+                    - name
+            form:
+                role: ROLE_SUPER_ADMIN
+                fields:
+                    - groupCompany
+                    - name
+            delete:
+                role:  ROLE_SUPER_ADMIN
+
+        Device:
+            class: App\Entity\Device
+
+            list:
+                fields:
+                    - id
+                    - establishment
+                    - name
+                    - content
+            show:
+                fields:
+                    - id
+                    - establishment
+                    - name
+                    - content
+
+            form:
+                role: [ROLE_ADMIN, ROLE_SUPER_ADMIN]
+                fields:
+                    - establishment
+                    - name
+                    - content
+            delete:
+                role: ROLE_SUPER_ADMIN
+
+        Content:
+            class: App\Entity\Content
+            list:
+                fields:
+                    - name
+                    - type
+                    - url
+                    - { property: 'image',  type: 'image', base_path: '%app.path.product_images%' }
+            show:
+                fields:
+                    - name
+                    - type
+                    - url
+                    - { property: 'image', type: 'image',  base_path: '%app.path.product_images%' }
+
+            form:
+                role: [ROLE_ADMIN, ROLE_SUPER_ADMIN]
+                fields:
+                    - name
+                    - type
+                    - url
+                    - { type: 'group', css_class: 'col-sm-4', label: 'Attachments', icon: 'paperclip' }
+                    - { property: 'imageFile',  type: 'vich_image', type_options: { required: false } }
+            delete:
+                role: ROLE_ADMIN

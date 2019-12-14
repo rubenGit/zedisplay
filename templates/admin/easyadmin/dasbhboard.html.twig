@@ -1,0 +1,116 @@
+{% extends '@EasyAdmin/default/layout.html.twig' %}
+
+{% set _content_title = 'Dashboard' %}
+{% set locale = app.request.getPreferredLanguage | slice (0,2) %}
+
+{% block page_title -%}
+    {{ _content_title }}
+{% endblock %}
+
+{% block content_header %}
+    <h1 class="title">Welcome
+
+    </h1>
+
+    <style>
+        /*WHEATHER CSS*/
+        table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            width: 100%;
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 2px;
+        }
+
+        tr:nth-child(even){background-color: #f2f2f2}
+        /*WHEATHER CSS*/
+
+
+
+    </style>
+{% endblock %}
+
+
+
+{% block main %}
+
+    <div class="container">
+
+        <div class="jumbotron">
+            <br>
+
+            <div class="container">
+                <h2>This is what is happening in your Company</h2>
+            </div>
+        </div>
+
+                <div class="panel-body col-md-6 col-sm-12">
+                    <hr>
+                        <div >
+                            <small class="sales-orders-info">Users</small>
+                            <h3 class="blueNumber">{{ totalUsers }}</h3>
+                        </div>
+                </div>
+
+                <div class="panel-body col-md-6 col-sm-12">
+                    <hr>
+                    <a href="{{ path('easyadmin') }}?entity=GroupCompany&action=list">
+
+                        <div >
+                            <small class="sales-orders-info">Group Company</small>
+                            <h3 class="blueNumber">{{ totalGroups }}</h3>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="panel-body col-md-6 col-sm-12">
+                    <a href="{{ path('easyadmin') }}?entity=Establishment&action=list">
+                        <div >
+                            <small class="sales-orders-info">Establishments</small>
+                            <h3 class="blueNumber">{{ totalEstablishments }}</h3>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="panel-body col-md-6 col-sm-12">
+                    <a href="{{ path('easyadmin') }}?entity=Device&action=list">
+
+                        <div >
+                            <small class="sales-orders-info">Active Devices</small>
+                            <h3 class="blueNumber">{{ totalDevices }}</h3>
+                        </div>
+                    </a>
+                </div>
+
+
+                <div class="panel-body col-md-6 col-sm-12">
+                    <a href="{{ path('easyadmin') }}?entity=Content&action=list">
+
+                        <div >
+                            <small class="sales-orders-info">Contents</small>
+                            <h3 class="blueNumber">{{ totalContent }}</h3>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+{% endblock %}
+
+
+
+
+
+{% block body_javascript %}
+
+        <script
+                src="https://code.jquery.com/jquery-3.3.1.min.js"
+                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+                crossorigin="anonymous"></script>
+
+        <script type="text/javascript">
+        </script>
+{% endblock %}

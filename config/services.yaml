@@ -35,5 +35,9 @@ services:
     App\EventSubscriber\CommentNotificationSubscriber:
         $sender: '%app.notifications.email_sender%'
 
+    App\Services\HomeQueryManager:
+        arguments:
+          - "@doctrine.orm.default_entity_manager"
+
     # needed to activate the filters provided by Twig Intl Extension
     Twig\Extra\Intl\IntlExtension: null

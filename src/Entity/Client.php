@@ -11,7 +11,7 @@ use App\Traits\IdTrait;
 
 /**
  * Class Client
- * @package Tbagrosensor\Entityç
+ * @package App\Entity
  * @ORM\Entity
  */
 class Client
