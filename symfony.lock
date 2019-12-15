@@ -1,4 +1,7 @@
 {
+    "alterphp/easyadmin-extension-bundle": {
+        "version": "v3.0.0"
+    },
     "behat/transliterator": {
         "version": "v1.2.0"
     },
@@ -142,8 +145,23 @@
     "jms/metadata": {
         "version": "2.1.0"
     },
+    "league/uri-components": {
+        "version": "1.8.2"
+    },
+    "league/uri-hostname-parser": {
+        "version": "1.1.1"
+    },
+    "league/uri-interfaces": {
+        "version": "1.1.1"
+    },
+    "league/uri-manipulations": {
+        "version": "1.5.0"
+    },
     "league/uri-parser": {
         "version": "1.4.1"
+    },
+    "league/uri-schemes": {
+        "version": "1.2.1"
     },
     "masterminds/html5": {
         "version": "2.7.0"
@@ -172,8 +190,14 @@
     "psr/container": {
         "version": "1.0.0"
     },
+    "psr/http-message": {
+        "version": "1.0.1"
+    },
     "psr/log": {
         "version": "1.1.2"
+    },
+    "psr/simple-cache": {
+        "version": "1.0.1"
     },
     "sensio/framework-extra-bundle": {
         "version": "5.2",
