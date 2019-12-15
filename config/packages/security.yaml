@@ -53,7 +53,10 @@ security:
     access_control:
         # this is a catch-all for the admin area
         # additional security lives in the controllers
-        - { path: '^/(%app_locales%)/admin', roles: ROLE_ADMIN }
+#        - { path: '^/(%app_locales%)/admin', roles: ROLE_ADMIN }
+#        - { path: '^/(%app_locales%)/backend', roles: ROLE_ADMIN }
 
     role_hierarchy:
-        ROLE_ADMIN: ROLE_USER
+        ROLE_USER: ROLE_USER
+        ROLE_ADMIN: ROLE_ADMIN # VIEW & EDIT HIS FINCAS
+        ROLE_SUPER_ADMIN: ADMIN_TBA # VIEW & EDIT ALL

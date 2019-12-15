@@ -131,9 +131,6 @@ class Client
         $this->contents = new ArrayCollection();
     }
 
-
-
-
     /**
      * @return string
      */

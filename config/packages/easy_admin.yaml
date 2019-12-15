@@ -3,12 +3,12 @@ easy_admin:
     design:
         menu:
             - { label: 'Dashboard', route: 'dashboard', icon: 'dashboard', default: true }
-            - { entity: 'User', icon: 'user', role:  ROLE_SUPER_ADMIN}
-            - { entity: 'Client', icon: 'user-o', role: ROLE_SUPER_ADMIN }
-            - { entity: 'GroupCompany', icon: 'circle' , role: ROLE_SUPER_ADMIN }
-            - { entity: 'Establishment', icon: 'building', role:  ROLE_SUPER_ADMIN }
-            - { entity: 'Device', icon: 'tv', role: [ROLE_ADMIN, ROLE_SUPER_ADMIN]}
-            - { entity: 'Content', icon: 'book', role: [ROLE_ADMIN, ROLE_SUPER_ADMIN] }
+            - { entity: 'User', icon: 'user', role:  [ROLE_ADMIN, ROLE_SUPER_ADMIN]}
+            - { entity: 'Client', icon: 'user-o', role: [ROLE_ADMIN, ROLE_SUPER_ADMIN] }
+            - { entity: 'GroupCompany', icon: 'circle' , role: [ROLE_ADMIN, ROLE_SUPER_ADMIN] }
+            - { entity: 'Establishment', icon: 'building', role:  [ROLE_ADMIN, ROLE_SUPER_ADMIN] }
+            - { entity: 'Device', icon: 'tv', role: [ROLE_ADMIN, ROLE_SUPER_ADMIN, ROLE_USER]}
+            - { entity: 'Content', icon: 'book', role: [ROLE_ADMIN, ROLE_SUPER_ADMIN, ROLE_USER] }
 
         assets:
             favicon: '/build/images/favicon.png'
@@ -59,7 +59,7 @@ easy_admin:
                     - { property: 'plainPassword', type: 'text', type_options: { required: false } }
                     - { property: 'roles', type: 'choice', type_options: { multiple: true, choices: { 'ADMINISTRADOR': 'ROLE_SUPER_ADMIN', 'USUARIO BASICO': 'ROLE_ADMIN' } } }
             delete:
-                role: ROLE_SUPER_ADMIN
+                role: [ROLE_ADMIN, ROLE_SUPER_ADMIN]
 
         Client:
             class: App\Entity\Client
@@ -92,11 +92,11 @@ easy_admin:
                     - name
 
             form:
-                role: ROLE_SUPER_ADMIN
+                role: [ROLE_ADMIN, ROLE_SUPER_ADMIN]
                 fields:
                     - name
             delete:
-                role:  ROLE_SUPER_ADMIN
+                role:  [ROLE_ADMIN, ROLE_SUPER_ADMIN]
 
         Establishment:
             class: App\Entity\Establishment
@@ -109,12 +109,12 @@ easy_admin:
                     - groupCompany
                     - name
             form:
-                role: ROLE_SUPER_ADMIN
+                role: [ROLE_ADMIN, ROLE_SUPER_ADMIN]
                 fields:
                     - groupCompany
                     - name
             delete:
-                role:  ROLE_SUPER_ADMIN
+                role:  [ROLE_ADMIN, ROLE_SUPER_ADMIN]
 
         Device:
             class: App\Entity\Device
@@ -139,7 +139,7 @@ easy_admin:
                     - name
                     - content
             delete:
-                role: ROLE_SUPER_ADMIN
+                role: [ROLE_ADMIN, ROLE_SUPER_ADMIN]
 
         Content:
             class: App\Entity\Content
@@ -157,7 +157,7 @@ easy_admin:
                     - { property: 'image', type: 'image',  base_path: '%app.path.product_images%' }
 
             form:
-                role: [ROLE_ADMIN, ROLE_SUPER_ADMIN]
+                role: [ROLE_ADMIN, ROLE_SUPER_ADMIN, ROLE_USER]
                 fields:
                     - name
                     - type
@@ -165,4 +165,4 @@ easy_admin:
                     - { type: 'group', css_class: 'col-sm-4', label: 'Attachments', icon: 'paperclip' }
                     - { property: 'imageFile',  type: 'vich_image', type_options: { required: false } }
             delete:
-                role: ROLE_ADMIN
+                role: [ROLE_ADMIN, ROLE_SUPER_ADMIN, ROLE_USER]

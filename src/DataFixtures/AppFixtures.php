@@ -12,6 +12,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Comment;
+use App\Entity\Client;
 use App\Entity\Post;
 use App\Entity\Tag;
 use App\Entity\User;
@@ -36,19 +37,126 @@ class AppFixtures extends Fixture
         $this->loadPosts($manager);
     }
 
+
+    private  function setTbaGroup($manager, UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $tbaClient= new Client();
+        $tbaClient->setName('tba');
+        $tbaClient->setCompanyName('tba');
+        $tbaClient->setCity('tba');
+        $tbaClient->setAddress('tba');
+        $tbaClient->setContactPersonEmail('tba@gmail.com');
+        $tbaClient->setContactPersonPhone('111');
+        $tbaClient->setContactPersonName('tba');
+        $tbaClient->setState('Valencia');
+        $tbaClient->setCountry('ES');
+        $tbaClient->setPostalCode('000');
+        $tbaClient->setTaxId('000');
+        $manager->persist($tbaClient);
+
+        $adminTBA = new User();
+        $adminTBA->setFullName('EL SUPER ADMIN');
+        $adminTBA->setUsername('tba');
+        $adminTBA->setEmail('tba@gmail.com');
+        $adminTBA->setPassword($passwordEncoder->encodePassword($adminTBA, 'tba'));
+        $adminTBA->setEnabled(true);
+        $adminTBA->setSuperAdminSupreme(true);
+        $userBasic->setRoles(['ROLE_SUPER_ADMIN']);
+        $adminTBA->setClient($tbaClient);
+        $manager->persist($adminTBA);
+        $this->addReference('tba', $adminTBA);
+
+    }
+
+
+    private  function setOscarGroup($manager,$passwordEncoder)
+    {
+        $oscarClient = new Client();
+        $oscarClient->setName('oscar');
+        $oscarClient->setCompanyName('zinkers');
+        $oscarClient->setCity('pedreger');
+        $oscarClient->setAddress('12');
+        $oscarClient->setContactPersonEmail('oscar@outlook.es');
+        $oscarClient->setContactPersonPhone('111');
+        $oscarClient->setContactPersonName('oscar');
+        $oscarClient->setState('Valencia');
+        $oscarClient->setCountry('ES');
+        $oscarClient->setPostalCode('000');
+        $oscarClient->setTaxId('000');
+        $manager->persist($oscarClient);
+
+        $adminFinca = new User();
+        $adminFinca->setFullName('Oscar Carrio');
+        $adminFinca->setUsername('oscar');
+        $adminFinca->setEmail('oscar@gmail.com');
+        $adminFinca->setPassword($passwordEncoder->encodePassword($adminFinca, 'oscar'));
+        $adminFinca->setEnabled(true);
+        $adminFinca->setSuperAdminSupreme(true);
+        $userBasic->setRoles(['ROLE_ADMIN']);
+        $adminFinca->setClient($oscarClient);
+        $manager->persist($adminFinca);
+
+        $userBasic  = new User();
+        $userBasic->setFullName('EMPLEADO 1 OSCAR');
+        $userBasic->setUsername('emposcar');
+        $userBasic->setEmail('emposcar@gmail.com');
+        $userBasic->setPassword($passwordEncoder->encodePassword($adminFinca, 'oscar'));
+        $userBasic->setEnabled(true);
+        $userBasic->setRoles(['ROLE_USER']);
+        $userBasic->setClient($oscarClient);
+        $manager->persist($userBasic);
+        $this->addReference('emposcar', $userBasic);
+
+    }
+
+
+    private  function setRubenGroup($manager,$passwordEncoder)
+    {
+        $rubenClient = new Client();
+        $rubenClient->setName('ruben');
+        $rubenClient->setCompanyName('google');
+        $rubenClient->setCity('benidorm');
+        $rubenClient->setAddress('12');
+        $rubenClient->setContactPersonEmail('ruben_m7@outlook.es');
+        $rubenClient->setContactPersonPhone('111');
+        $rubenClient->setContactPersonName('ruben');
+        $rubenClient->setState('Valencia');
+        $rubenClient->setCountry('ES');
+        $rubenClient->setPostalCode('000');
+        $rubenClient->setTaxId('000');
+        $manager->persist($rubenClient);
+
+        $adminFinca = new User();
+        $adminFinca->setFullName('Ruben Molines');
+        $adminFinca->setUsername('ruben');
+        $adminFinca->setEmail('ruben@gmail.com');
+        $adminFinca->setPassword($passwordEncoder->encodePassword($adminFinca, 'ruben'));
+        $adminFinca->setEnabled(true);
+        $adminFinca->setSuperAdminSupreme(true);
+        $userBasic->setRoles('ROLE_ADMIN');
+        $adminFinca->setClient($rubenClient);
+        $manager->persist($adminFinca);
+
+        $userBasic = new User();
+        $userBasic->setFullName('empleado Ruben Molines');
+        $userBasic->setUsername('empruben');
+        $userBasic->setEmail('empruben@gmail.com');
+        $userBasic->setPassword($passwordEncoder->encodePassword($adminFinca, 'ruben'));
+        $userBasic->setEnabled(true);
+        $userBasic->setRoles(['ROLE_USER']);
+        $userBasic->setClient($rubenClient);
+        $manager->persist($userBasic);
+        $this->addReference('empruben', $userBasic);
+
+    }
+
+
+
     private function loadUsers(ObjectManager $manager): void
     {
-        foreach ($this->getUserData() as [$fullname, $username, $password, $email, $roles]) {
-            $user = new User();
-            $user->setFullName($fullname);
-            $user->setUsername($username);
-            $user->setPassword($this->passwordEncoder->encodePassword($user, $password));
-            $user->setEmail($email);
-            $user->setRoles($roles);
-
-            $manager->persist($user);
-            $this->addReference($username, $user);
-        }
+        $this->setTbaGroup($manager, $this->passwordEncoder);
+        $this->setRubenGroup($manager, $this->passwordEncoder);
+        $this->setOscarGroup($manager, $this->passwordEncoder);
 
         $manager->flush();
     }
@@ -80,7 +188,7 @@ class AppFixtures extends Fixture
 
             foreach (range(1, 5) as $i) {
                 $comment = new Comment();
-                $comment->setAuthor($this->getReference('john_user'));
+                $comment->setAuthor($this->getReference('tba'));
                 $comment->setContent($this->getRandomText(random_int(255, 512)));
                 $comment->setPublishedAt(new \DateTime('now + '.$i.'seconds'));
 
@@ -97,9 +205,9 @@ class AppFixtures extends Fixture
     {
         return [
             // $userData = [$fullname, $username, $password, $email, $roles];
-            ['Jane Doe', 'jane_admin', 'kitten', 'jane_admin@symfony.com', ['ROLE_ADMIN']],
-            ['Tom Doe', 'tom_admin', 'kitten', 'tom_admin@symfony.com', ['ROLE_ADMIN']],
-            ['John Doe', 'john_user', 'kitten', 'john_user@symfony.com', ['ROLE_USER']],
+            ['Jane Doe', 'jane_admin', 'kitten', 'jane_admin@symfony.com', ['ROLE_USER'], true, false],
+            ['Tom Doe', 'tom_admin', 'kitten', 'tom_admin@symfony.com', ['ROLE_ADMIN'], true, false],
+            ['John Doe', 'john_user', 'kitten', 'john_user@symfony.com', ['ROLE_SUPER_ADMIN'], true, false],
         ];
     }
 
@@ -130,7 +238,7 @@ class AppFixtures extends Fixture
                 $this->getPostContent(),
                 new \DateTime('now - '.$i.'days'),
                 // Ensure that the first post is written by Jane Doe to simplify tests
-                $this->getReference(['jane_admin', 'tom_admin'][0 === $i ? 0 : random_int(0, 1)]),
+                $this->getReference(['tba', 'empruben'][0 === $i ? 0 : random_int(0, 1)]),
                 $this->getRandomTags(),
             ];
         }
