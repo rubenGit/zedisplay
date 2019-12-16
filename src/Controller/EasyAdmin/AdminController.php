@@ -44,7 +44,9 @@ class AdminController extends EasyAdminController
 
         $response = parent::createListQueryBuilder($entityClass, $sortDirection, $sortField, $dqlFilter);
 
+        dump($this->user->getSuperAdminSupreme());
 
+        dump($this->isGranted(User::ROLE_ADMIN_TBA));
         if(!$this->user->getSuperAdminSupreme())  {
             switch ($entityClass) {
                 case GroupCompany::class:

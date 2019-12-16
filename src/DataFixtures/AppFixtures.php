@@ -61,7 +61,7 @@ class AppFixtures extends Fixture
         $adminTBA->setPassword($passwordEncoder->encodePassword($adminTBA, 'tba'));
         $adminTBA->setEnabled(true);
         $adminTBA->setSuperAdminSupreme(true);
-        $userBasic->setRoles(['ROLE_SUPER_ADMIN']);
+        $adminTBA->setRoles(['ROLE_SUPER_ADMIN']);
         $adminTBA->setClient($tbaClient);
         $manager->persist($adminTBA);
         $this->addReference('tba', $adminTBA);
@@ -91,8 +91,7 @@ class AppFixtures extends Fixture
         $adminFinca->setEmail('oscar@gmail.com');
         $adminFinca->setPassword($passwordEncoder->encodePassword($adminFinca, 'oscar'));
         $adminFinca->setEnabled(true);
-        $adminFinca->setSuperAdminSupreme(true);
-        $userBasic->setRoles(['ROLE_ADMIN']);
+        $adminFinca->setRoles(['ROLE_ADMIN']);
         $adminFinca->setClient($oscarClient);
         $manager->persist($adminFinca);
 
@@ -132,8 +131,7 @@ class AppFixtures extends Fixture
         $adminFinca->setEmail('ruben@gmail.com');
         $adminFinca->setPassword($passwordEncoder->encodePassword($adminFinca, 'ruben'));
         $adminFinca->setEnabled(true);
-        $adminFinca->setSuperAdminSupreme(true);
-        $userBasic->setRoles('ROLE_ADMIN');
+        $adminFinca->setRoles(['ROLE_ADMIN']);
         $adminFinca->setClient($rubenClient);
         $manager->persist($adminFinca);
 

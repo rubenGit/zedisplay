@@ -30,6 +30,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User implements UserInterface, \Serializable
 {
+    const ROLE_ADMIN_TBA = 'ROLE_SUPER_ADMIN';
+    const ROLE_ADMIN_FINCA = 'ROLE_ADMIN';
+
     /**
      * @var int
      *
