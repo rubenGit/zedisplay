@@ -42,6 +42,7 @@ class AppFixtures extends Fixture
     {
         $tbaClient= new Client();
         $tbaClient->setName('tba');
+        $tbaClient->setSuperAdminSupreme(true);
         $tbaClient->setCompanyName('tba');
         $tbaClient->setCity('tba');
         $tbaClient->setAddress('tba');
@@ -60,7 +61,6 @@ class AppFixtures extends Fixture
         $adminTBA->setEmail('tba@gmail.com');
         $adminTBA->setPassword($passwordEncoder->encodePassword($adminTBA, 'tba'));
         $adminTBA->setEnabled(true);
-        $adminTBA->setSuperAdminSupreme(true);
         $adminTBA->setRoles(['ROLE_SUPER_ADMIN']);
         $adminTBA->setClient($tbaClient);
         $manager->persist($adminTBA);

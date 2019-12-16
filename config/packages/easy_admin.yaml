@@ -3,12 +3,12 @@ easy_admin:
     design:
         menu:
             - { label: 'Dashboard', route: 'dashboard', icon: 'dashboard', default: true }
-            - { entity: 'User', icon: 'user', role:  [ROLE_ADMIN, ROLE_SUPER_ADMIN]}
-            - { entity: 'Client', icon: 'user-o', role: [ROLE_ADMIN, ROLE_SUPER_ADMIN] }
-            - { entity: 'GroupCompany', icon: 'circle' , role: [ROLE_ADMIN, ROLE_SUPER_ADMIN] }
-            - { entity: 'Establishment', icon: 'building', role:  [ROLE_ADMIN, ROLE_SUPER_ADMIN] }
-            - { entity: 'Device', icon: 'tv', role: [ROLE_ADMIN, ROLE_SUPER_ADMIN, ROLE_USER]}
-            - { entity: 'Content', icon: 'book', role: [ROLE_ADMIN, ROLE_SUPER_ADMIN, ROLE_USER] }
+            - { entity: 'User', icon: 'user', permission:  [ROLE_ADMIN, ROLE_SUPER_ADMIN]}
+            - { entity: 'Client', icon: 'user-o', permission: [ROLE_ADMIN, ROLE_SUPER_ADMIN] }
+            - { entity: 'GroupCompany', icon: 'circle' , permission: [ROLE_ADMIN, ROLE_SUPER_ADMIN] }
+            - { entity: 'Establishment', icon: 'building', permission:  [ROLE_ADMIN, ROLE_SUPER_ADMIN] }
+            - { entity: 'Device', icon: 'tv', permission: [ROLE_ADMIN, ROLE_SUPER_ADMIN, ROLE_USER]}
+            - { entity: 'Content', icon: 'book', permission: [ROLE_ADMIN, ROLE_SUPER_ADMIN, ROLE_USER] }
 
         assets:
             favicon: '/build/images/favicon.png'
@@ -28,17 +28,18 @@ easy_admin:
         # List the entity class name you want to manage
         User:
             class: App\Entity\User
+            role: [ROLE_ADMIN, ROLE_SUPER_ADMIN]
 #            templates:
 #                list: 'admin/post/list.html.twig'
-
             list:
                 form_filters:
                     - { property: client, label: 'Client' }
                 fields:
-                    - name
+                    - fullname
                     - client
                     - username
                     - email
+                    - { property: 'enabled', permission: ROLE_SUPER_ADMIN }
                     - created
             show:
                 fields:
@@ -54,6 +55,7 @@ easy_admin:
                     - name
                     - username
                     - email
+                    - { property: 'enabled', permission: ROLE_SUPER_ADMIN }
                     - client
                     # if administrators are allowed to edit users' passwords and roles, add this:
                     - { property: 'plainPassword', type: 'text', type_options: { required: false } }
@@ -63,13 +65,28 @@ easy_admin:
 
         Client:
             class: App\Entity\Client
-            disabled_actions: ['new','delete']
+            role: [ROLE_ADMIN, ROLE_SUPER_ADMIN]
             list:
                 fields:
                     - id
                     - name
                     - contactPersonEmail
-            form:
+            new:
+                role: ROLE_SUPER_ADMIN
+                fields:
+                    - name
+                    - companyName
+                    - taxId
+                    - address
+                    - city
+                    - postalCode
+                    - state
+                    - { property: 'country', type: 'country' }
+                    - contactPersonName
+                    - contactPersonPhone
+                    - contactPersonEmail
+            edit:
+                role: [ROLE_ADMIN, ROLE_SUPER_ADMIN]
                 fields:
                     - name
                     - companyName
@@ -118,7 +135,6 @@ easy_admin:
 
         Device:
             class: App\Entity\Device
-
             list:
                 fields:
                     - id
@@ -132,8 +148,14 @@ easy_admin:
                     - name
                     - content
 
-            form:
+            new:
                 role: [ROLE_ADMIN, ROLE_SUPER_ADMIN]
+                fields:
+                    - establishment
+                    - name
+                    - content
+            edit:
+                role: [ROLE_ADMIN, ROLE_SUPER_ADMIN, ROLE_USER]
                 fields:
                     - establishment
                     - name
@@ -157,12 +179,9 @@ easy_admin:
                     - { property: 'image', type: 'image',  base_path: '%app.path.product_images%' }
 
             form:
-                role: [ROLE_ADMIN, ROLE_SUPER_ADMIN, ROLE_USER]
                 fields:
                     - name
                     - type
                     - url
                     - { type: 'group', css_class: 'col-sm-4', label: 'Attachments', icon: 'paperclip' }
                     - { property: 'imageFile',  type: 'vich_image', type_options: { required: false } }
-            delete:
-                role: [ROLE_ADMIN, ROLE_SUPER_ADMIN, ROLE_USER]

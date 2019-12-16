@@ -30,7 +30,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User implements UserInterface, \Serializable
 {
-    const ROLE_ADMIN_TBA = 'ROLE_SUPER_ADMIN';
+    const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
     const ROLE_ADMIN_FINCA = 'ROLE_ADMIN';
 
     /**
@@ -42,10 +42,6 @@ class User implements UserInterface, \Serializable
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="boolean", length=255, nullable=true)
-     */
-    private $superAdminSupreme;
 
     /**
      * @ORM\Column(type="boolean")
@@ -104,7 +100,6 @@ class User implements UserInterface, \Serializable
     public function __construct()
     {
         $this->enabled = true;
-        $this->superAdminSupreme = false;
     }
 
 
@@ -225,18 +220,6 @@ class User implements UserInterface, \Serializable
     {
         // add $this->salt too if you don't use Bcrypt or Argon2i
         [$this->id, $this->username, $this->password] = unserialize($serialized, ['allowed_classes' => false]);
-    }
-
-    public function getSuperAdminSupreme(): ?bool
-    {
-        return $this->superAdminSupreme;
-    }
-
-    public function setSuperAdminSupreme(?bool $superAdminSupreme): self
-    {
-        $this->superAdminSupreme = $superAdminSupreme;
-
-        return $this;
     }
 
     public function getEnabled(): ?bool

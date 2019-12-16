@@ -41,13 +41,9 @@ class AdminController extends EasyAdminController
 
     public function createListQueryBuilder($entityClass, $sortDirection, $sortField = null, $dqlFilter = null)
     {
-
         $response = parent::createListQueryBuilder($entityClass, $sortDirection, $sortField, $dqlFilter);
 
-        dump($this->user->getSuperAdminSupreme());
-
-        dump($this->isGranted(User::ROLE_ADMIN_TBA));
-        if(!$this->user->getSuperAdminSupreme())  {
+        if(!$this->isGranted(User::ROLE_SUPER_ADMIN))  {
             switch ($entityClass) {
                 case GroupCompany::class:
                     $response->Where('entity.client IN(:idClient)');
@@ -121,7 +117,7 @@ class AdminController extends EasyAdminController
     protected function getFiltersForms($entity, $form)
     {
 
-        if(!$this->user->getSuperAdminSupreme())  {
+        if(!$this->isGranted(User::ROLE_SUPER_ADMIN))  {
 
             if ($entity instanceof User) {
 
