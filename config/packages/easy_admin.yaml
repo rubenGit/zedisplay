@@ -140,13 +140,14 @@ easy_admin:
                     - id
                     - establishment
                     - name
+                    - { property: 'content', type_options: { required: true } }
                     - content
             show:
                 fields:
                     - id
                     - establishment
                     - name
-                    - content
+                    - { property: 'content', type_options: { required: true } }
 
             new:
                 role: [ROLE_ADMIN, ROLE_SUPER_ADMIN]

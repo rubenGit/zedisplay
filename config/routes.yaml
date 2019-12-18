@@ -10,3 +10,12 @@ homepage:
     defaults:
         template: default/homepage.html.twig
         _locale: '%locale%'
+
+
+
+save_streaming_data:
+    methods: ['POST']
+    path: '/api/streaming'
+    controller: 'App\Controller\Api\ApiController::getUrltoLoadAction'
+
+
