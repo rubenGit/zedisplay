@@ -161,6 +161,15 @@ class AddUserCommand extends Command
             $fullName = $this->io->ask('Full Name', null, [$this->validator, 'validateFullName']);
             $input->setArgument('full-name', $fullName);
         }
+
+        // Ask for the full name if it's not defined
+        $admin = $input->getArgument('admin');
+        if (null !== $admin) {
+            $this->io->text(' > <info>admin/info>:');
+        } else {
+            $admin = $this->io->ask('Admin', true);
+            $input->setArgument('admin', $admin);
+        }
     }
 
     /**
