@@ -176,7 +176,7 @@ class AddUserCommand extends Command
         $plainPassword = $input->getArgument('password');
         $email = $input->getArgument('email');
         $fullName = $input->getArgument('full-name');
-        $isAdmin = $input->getOption('admin');
+        $isAdmin = $input->getArgument('admin');
 
         // make sure to validate the user data is correct
         $this->validateUserData($username, $plainPassword, $email, $fullName);
@@ -186,7 +186,7 @@ class AddUserCommand extends Command
         $user->setFullName($fullName);
         $user->setUsername($username);
         $user->setEmail($email);
-        $user->setRoles([$isAdmin ? 'ROLE_ADMIN' : 'ROLE_USER']);
+        $user->setRoles([$isAdmin ? 'ROLE_SUPER_ADMIN' : 'ROLE_ADMIN']);
 
         // See https://symfony.com/doc/current/book/security.html#security-encoding-password
         $encodedPassword = $this->passwordEncoder->encodePassword($user, $plainPassword);
