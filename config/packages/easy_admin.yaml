@@ -32,8 +32,8 @@ easy_admin:
 #            templates:
 #                list: 'admin/post/list.html.twig'
             list:
-                form_filters:
-                    - { property: client, label: 'Client' }
+#                form_filters:
+#                    - { property: client, label: 'Client' }
                 fields:
                     - fullname
                     - client
@@ -43,7 +43,7 @@ easy_admin:
                     - created
             show:
                 fields:
-                    - name
+                    - fullname
                     - username
                     - email
                     - created
@@ -52,7 +52,7 @@ easy_admin:
                     - roles
             form:
                 fields:
-                    - name
+                    - fullname
                     - username
                     - email
                     - { property: 'enabled', permission: ROLE_SUPER_ADMIN }

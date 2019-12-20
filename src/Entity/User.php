@@ -42,7 +42,6 @@ class User implements UserInterface, \Serializable
      */
     private $id;
 
-
     /**
      * @ORM\Column(type="boolean")
      */
@@ -55,6 +54,13 @@ class User implements UserInterface, \Serializable
      * @Assert\NotBlank()
      */
     private $fullName;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    private $name;
 
     /**
      * @var string
@@ -72,6 +78,13 @@ class User implements UserInterface, \Serializable
      * @Assert\Email()
      */
     private $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     */
+    private $plainPassword;
 
     /**
      * @var string
@@ -111,6 +124,7 @@ class User implements UserInterface, \Serializable
     public function setFullName(string $fullName): void
     {
         $this->fullName = $fullName;
+        $this->name = $fullName;
     }
 
     public function getFullName(): ?string
@@ -230,6 +244,30 @@ class User implements UserInterface, \Serializable
     public function setEnabled(bool $enabled): self
     {
         $this->enabled = $enabled;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(string $plainPassword): self
+    {
+        $this->plainPassword = $plainPassword;
 
         return $this;
     }

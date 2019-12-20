@@ -185,7 +185,7 @@ class AdminController extends EasyAdminController
 
     public function createNewUserEntity()
     {
-        // TODO: CREATE NEW USER
+
     }
 
     public function persistUserEntity($user)
