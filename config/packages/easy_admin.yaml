@@ -3,7 +3,7 @@ easy_admin:
     design:
         menu:
             - { label: 'Dashboard', route: 'dashboard', icon: 'dashboard', default: true }
-            - { entity: 'User', icon: 'user', permission:  [ROLE_ADMIN, ROLE_SUPER_ADMIN]}
+            - { entity: 'User', icon: 'user', permission:  [ROLE_SUPER_ADMIN]}
             - { entity: 'Client', icon: 'user-o', permission: [ROLE_ADMIN, ROLE_SUPER_ADMIN] }
             - { entity: 'GroupCompany', icon: 'circle' , permission: [ROLE_ADMIN, ROLE_SUPER_ADMIN] }
             - { entity: 'Establishment', icon: 'building', permission:  [ROLE_ADMIN, ROLE_SUPER_ADMIN] }
