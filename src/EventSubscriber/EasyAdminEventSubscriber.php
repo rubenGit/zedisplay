@@ -9,7 +9,7 @@
 namespace App\EventSubscriber;
 
 
-use App\Entity\Client;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -72,9 +72,7 @@ class EasyAdminEventSubscriber implements EventSubscriberInterface
     {
         $clientInSession = $this->security->getUser()->getClient();
 
-        $clientInSessio = new Client();
-
-        if ($clientInSessio->getSuperAdminSupreme()) {
+        if ($this->security->isGranted(User::ROLE_SUPER_ADMIN)) {
             $this->keepClientAssociated($entity);
         }else{
             $this->addClientInSession($clientInSession, $entity);

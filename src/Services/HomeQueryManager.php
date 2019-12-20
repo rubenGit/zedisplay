@@ -40,7 +40,7 @@ class HomeQueryManager
         $this->establishmentRepository = $this->em->getRepository(Establishment::class);
         $this->groupRepository = $this->em->getRepository(GroupCompany::class);
         $this->userRepository = $this->em->getRepository(User::class);
-        $this->isSuperAdminSupreme = $security->getUser()->getClient()->getSuperAdminSupreme();
+        $this->isSuperAdminSupreme = $security->isGranted(User::ROLE_SUPER_ADMIN);
         $this->idClient =  $security->getUser()->getClient();
     }
 

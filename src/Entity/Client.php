@@ -28,11 +28,6 @@ class Client
     private $name;
 
     /**
-     * @ORM\Column(type="boolean", length=255, nullable=true)
-     */
-    private $superAdminSupreme;
-
-    /**
      * @var string The company name of the client
      *
      * @ORM\Column(type="string")
@@ -134,7 +129,6 @@ class Client
         $this->establishments = new ArrayCollection();
         $this->devices = new ArrayCollection();
         $this->contents = new ArrayCollection();
-        $this->superAdminSupreme = false;
     }
 
     /**
@@ -495,18 +489,4 @@ class Client
 
         return $this;
     }
-
-    public function getSuperAdminSupreme(): ?bool
-    {
-        return $this->superAdminSupreme;
-    }
-
-    public function setSuperAdminSupreme(?bool $superAdminSupreme): self
-    {
-        $this->superAdminSupreme = $superAdminSupreme;
-
-        return $this;
-    }
-
-
 }

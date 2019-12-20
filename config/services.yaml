@@ -38,6 +38,7 @@ services:
     App\Services\HomeQueryManager:
         arguments:
           - "@doctrine.orm.default_entity_manager"
+          - "@security.helper"
 
     # needed to activate the filters provided by Twig Intl Extension
     Twig\Extra\Intl\IntlExtension: null
