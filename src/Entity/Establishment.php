@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Traits\CreatedUpdatedTrait;
 use App\Traits\IdTrait;
+use Ramsey\Uuid\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EstablishmentRepository")
@@ -43,6 +44,13 @@ class Establishment
 
     public function __construct()
     {
+        try {
+            $uuidGenerator = Uuid::uuid4();
+            $this->id = $uuidGenerator->toString();
+        } catch (\Exception $exception) {
+            // Do something
+        }
+
         $this->devices = new ArrayCollection();
     }
 

@@ -13,6 +13,7 @@ namespace App\Entity;
 
 use App\Traits\IdTrait;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -106,12 +107,13 @@ class User implements UserInterface, \Serializable
      */
     public function __construct()
     {
+        $this->id = Uuid::uuid4();
         $this->enabled = true;
     }
 
     public function __toString()
     {
-        return $this->name;
+        return strval( $this->getId() );
     }
 
     public function setFullName(string $fullName): void

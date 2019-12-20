@@ -36,9 +36,9 @@ class SecurityController extends AbstractController
     public function login(Request $request, Security $security, AuthenticationUtils $helper): Response
     {
         // if user is already logged in, don't display the login page again
-        if ($security->isGranted('ROLE_USER')) {
-            return $this->redirectToRoute('blog_index');
-        }
+//        if ($security->isGranted('ROLE_SUPER_ADMIN')) {
+//            return $this->redirectToRoute('blog_index');
+//        }
 
         // this statement solves an edge-case: if you change the locale in the login
         // page, after a successful login you are redirected to a page in the previous

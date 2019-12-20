@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use App\Traits\CreatedUpdatedTrait;
 use App\Traits\IdTrait;
+use Ramsey\Uuid\Uuid;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DeviceRepository")
@@ -39,6 +40,15 @@ class Device
         return $this->name;
     }
 
+    public function __construct()
+    {
+        try {
+            $uuidGenerator = Uuid::uuid4();
+            $this->id = $uuidGenerator->toString();
+        } catch (\Exception $exception) {
+            // Do something
+        }
+    }
 
     public function getName(): ?string
     {

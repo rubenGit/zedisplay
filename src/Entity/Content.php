@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\File\File;
 use App\Traits\IdTrait;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -104,6 +105,12 @@ class Content
 
     public function __construct()
     {
+        try {
+            $uuidGenerator = Uuid::uuid4();
+            $this->id = $uuidGenerator->toString();
+        } catch (\Exception $exception) {
+            // Do something
+        }
         $this->device = new ArrayCollection();
         $this->updatedAt = new \DateTime('NOW');
     }

@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Ramsey\Uuid\Uuid;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Traits\CreatedUpdatedTrait;
 use App\Traits\IdTrait;
@@ -124,6 +125,7 @@ class Client
 
     public function __construct()
     {
+        $this->id = Uuid::uuid4();
         $this->users = new ArrayCollection();
         $this->groupCompany = new ArrayCollection();
         $this->establishments = new ArrayCollection();
