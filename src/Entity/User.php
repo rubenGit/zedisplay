@@ -11,6 +11,7 @@
 
 namespace App\Entity;
 
+use App\Traits\IdTrait;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -33,14 +34,7 @@ class User implements UserInterface, \Serializable
     const ROLE_SUPER_ADMIN = 'ROLE_SUPER_ADMIN';
     const ROLE_ADMIN_FINCA = 'ROLE_ADMIN';
 
-    /**
-     * @var int
-     *
-     * @ORM\Id
-     * @ORM\GeneratedValue
-     * @ORM\Column(type="integer")
-     */
-    private $id;
+    use IdTrait;
 
     /**
      * @ORM\Column(type="boolean")
@@ -113,12 +107,6 @@ class User implements UserInterface, \Serializable
     public function __construct()
     {
         $this->enabled = true;
-    }
-
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     public function setFullName(string $fullName): void
