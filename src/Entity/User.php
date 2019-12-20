@@ -113,7 +113,7 @@ class User implements UserInterface, \Serializable
 
     public function __toString()
     {
-        return strval( $this->getId() );
+        return $this->fullName;
     }
 
     public function setFullName(string $fullName): void
