@@ -58,6 +58,7 @@ class AppFixtures extends Fixture
         $adminTBA->setFullName('EL SUPER ADMIN');
         $adminTBA->setUsername('tba');
         $adminTBA->setEmail('tba@gmail.com');
+        $adminTBA->setPlainPassword($passwordEncoder->encodePassword($adminTBA, 'tba'));
         $adminTBA->setPassword($passwordEncoder->encodePassword($adminTBA, 'tba'));
         $adminTBA->setEnabled(true);
         $adminTBA->setRoles(['ROLE_SUPER_ADMIN']);
@@ -88,6 +89,7 @@ class AppFixtures extends Fixture
         $adminFinca->setFullName('Oscar Carrio');
         $adminFinca->setUsername('oscar');
         $adminFinca->setEmail('oscar@gmail.com');
+        $adminFinca->setPlainPassword($passwordEncoder->encodePassword($adminFinca, 'oscar'));
         $adminFinca->setPassword($passwordEncoder->encodePassword($adminFinca, 'oscar'));
         $adminFinca->setEnabled(true);
         $adminFinca->setRoles(['ROLE_ADMIN']);
@@ -98,6 +100,7 @@ class AppFixtures extends Fixture
         $userBasic->setFullName('EMPLEADO 1 OSCAR');
         $userBasic->setUsername('emposcar');
         $userBasic->setEmail('emposcar@gmail.com');
+        $userBasic->setPlainPassword($passwordEncoder->encodePassword($adminFinca, 'oscar'));
         $userBasic->setPassword($passwordEncoder->encodePassword($adminFinca, 'oscar'));
         $userBasic->setEnabled(true);
         $userBasic->setRoles(['ROLE_USER']);
@@ -128,6 +131,7 @@ class AppFixtures extends Fixture
         $adminFinca->setFullName('Ruben Molines');
         $adminFinca->setUsername('ruben');
         $adminFinca->setEmail('ruben@gmail.com');
+        $adminFinca->setPlainPassword($passwordEncoder->encodePassword($adminFinca, 'ruben'));
         $adminFinca->setPassword($passwordEncoder->encodePassword($adminFinca, 'ruben'));
         $adminFinca->setEnabled(true);
         $adminFinca->setRoles(['ROLE_ADMIN']);
@@ -138,6 +142,7 @@ class AppFixtures extends Fixture
         $userBasic->setFullName('empleado Ruben Molines');
         $userBasic->setUsername('empruben');
         $userBasic->setEmail('empruben@gmail.com');
+        $userBasic->setPlainPassword($passwordEncoder->encodePassword($adminFinca, 'ruben'));
         $userBasic->setPassword($passwordEncoder->encodePassword($adminFinca, 'ruben'));
         $userBasic->setEnabled(true);
         $userBasic->setRoles(['ROLE_USER']);
