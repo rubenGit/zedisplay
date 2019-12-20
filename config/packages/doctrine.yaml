@@ -7,6 +7,7 @@ parameters:
 doctrine:
     dbal:
         url: '%env(resolve:DATABASE_URL)%'
+        charset: utf8
 
         # IMPORTANT: when not use SQLite, you MUST configure your db driver and
         # server version, either here or in the DATABASE_URL env var (see .env file)
