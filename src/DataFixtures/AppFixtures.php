@@ -42,7 +42,6 @@ class AppFixtures extends Fixture
     {
         $tbaClient= new Client();
         $tbaClient->setName('tba');
-        $tbaClient->setSuperAdminSupreme(true);
         $tbaClient->setCompanyName('tba');
         $tbaClient->setCity('tba');
         $tbaClient->setAddress('tba');
