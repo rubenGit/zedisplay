@@ -203,7 +203,7 @@ class AddUserCommand extends Command
         $user->setRoles([$isAdmin ? 'ROLE_SUPER_ADMIN' : 'ROLE_ADMIN']);
 
         // See https://symfony.com/doc/current/book/security.html#security-encoding-password
-        $user->setPlainPassword('user-by-command');
+        $user->setPlainPassword($plainPassword);
         $encodedPassword = $this->passwordEncoder->encodePassword($user, $plainPassword);
         $user->setPassword($encodedPassword);
 
