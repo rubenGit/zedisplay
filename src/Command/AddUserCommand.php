@@ -11,6 +11,7 @@
 
 namespace App\Command;
 
+use App\Entity\Client;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use App\Utils\Validator;
@@ -195,12 +196,27 @@ class AddUserCommand extends Command
         // make sure to validate the user data is correct
         $this->validateUserData($username, $plainPassword, $email, $fullName);
 
+        //create Client
+        $tbaClient= new Client();
+        $tbaClient->setName('tba');
+        $tbaClient->setCompanyName('tba');
+        $tbaClient->setCity('tba');
+        $tbaClient->setAddress('tba');
+        $tbaClient->setContactPersonEmail('tba@gmail.com');
+        $tbaClient->setContactPersonPhone('111');
+        $tbaClient->setContactPersonName('tba');
+        $tbaClient->setState('Valencia');
+        $tbaClient->setCountry('ES');
+        $tbaClient->setPostalCode('000');
+        $tbaClient->setTaxId('000');
+
         // create the user and encode its password
         $user = new User();
         $user->setFullName($fullName);
         $user->setUsername($username);
         $user->setEmail($email);
         $user->setRoles([$isAdmin ? 'ROLE_SUPER_ADMIN' : 'ROLE_ADMIN']);
+        $user->setClient($tbaClient);
 
         // See https://symfony.com/doc/current/book/security.html#security-encoding-password
         $user->setPlainPassword($plainPassword);
