@@ -84,7 +84,7 @@ class AddUserCommand extends Command
             ->addArgument('password', InputArgument::OPTIONAL, 'The plain password of the new user')
             ->addArgument('email', InputArgument::OPTIONAL, 'The email of the new user')
             ->addArgument('full-name', InputArgument::OPTIONAL, 'The full name of the new user')
-            ->addOption('admin', null, InputOption::VALUE_NONE, 'If set, the user is created as an administrator')
+            ->addArgument('admin', InputArgument::OPTIONAL, 'Is S.Admin')
         ;
     }
 
@@ -112,7 +112,12 @@ class AddUserCommand extends Command
      */
     protected function interact(InputInterface $input, OutputInterface $output)
     {
-        if (null !== $input->getArgument('username') && null !== $input->getArgument('password') && null !== $input->getArgument('email') && null !== $input->getArgument('full-name')) {
+        if (null !== $input->getArgument('username')
+            && null !== $input->getArgument('password')
+            && null !== $input->getArgument('email')
+            && null !== $input->getArgument('full-name')
+            && null !== $input->getArgument('admin')
+        ) {
             return;
         }
 
