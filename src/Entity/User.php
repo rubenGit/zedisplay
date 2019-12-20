@@ -96,7 +96,7 @@ class User implements UserInterface, \Serializable
 
     /**
      * @Assert\NotNull
-     * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="users")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="users", cascade={"persist"})
      */
     private $client;
 
@@ -107,6 +107,11 @@ class User implements UserInterface, \Serializable
     public function __construct()
     {
         $this->enabled = true;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 
     public function setFullName(string $fullName): void
