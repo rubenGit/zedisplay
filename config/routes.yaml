@@ -14,7 +14,7 @@ homepage:
 
 
 save_streaming_data:
-    methods: ['POST']
+    methods: ['POST','GET']
     path: '/api/streaming'
     controller: 'App\Controller\Api\ApiController::getUrltoLoadAction'
 
