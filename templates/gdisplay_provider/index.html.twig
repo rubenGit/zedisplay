@@ -1,14 +1,32 @@
 
-{{ start_list |raw }}
+{#{{ start_list |raw }}#}
 
-{% for channel in list_channels %}
+{#{% for channel in list_channels %}#}
 
-    {% set index_main_loop = "" ~ loop.index%}
+    {#{% set index_main_loop = "" ~ loop.index%}#}
 
-    {% for content in channel %}
-        {{ header_channel }} {{ index_main_loop  }}
+    {#{% for content in channel %}#}
+        {#{{ header_channel|raw }} {{ index_main_loop|raw  }}#}
 
-        {{ content }}
-    {% endfor %}
+        {#{{ content|raw }}#}
+    {#{% endfor %}#}
 
-{% endfor %}
+{#{% endfor %}#}
+
+<pre>
+#EXTM3U
+#EXTINF:-1,Canal 1 (youtube)
+https://www.youtube.com/watch?v=1RwMFNy8UdM
+#EXTINF:-1,Canal 1 (youtube)
+https://www.youtube.com/watch?v=_iCETXJFhO8
+#EXTINF:-1,Canal 2 (youtube)
+https://www.youtube.com/watch?v=7fvHStnxT6k
+#EXTINF:-1,Canal 2 (youtube)
+https://www.youtube.com/watch?v=UR0La7_koW4
+#EXTINF:-1,Canal 3 (youtube)
+https://www.youtube.com/watch?v=tzviFoVfwFo
+#EXTINF:-1,Canal 3 (youtube)
+https://www.youtube.com/watch?v=-pitqeSUPX4
+#EXTINF:-1,Canal 4 (imagen)
+https://www.bioenciclopedia.com/wp-content/uploads/2016/07/caballo.jpg
+</pre>
