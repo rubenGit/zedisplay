@@ -52,15 +52,26 @@ class GDisplayProviderController extends AbstractController
 
         $listChannels = [$channel1, $channel2, $channel3, $channel4];
 
-        $content = $this->render('gdisplay_provider/index.html.twig', [
-            'start_list' => $startList,
-            'header_channel' => $headerChannel,
-            'list_channels' => $listChannels
-        ]);
 
 
-        $response = new Response(
-            '#EXTM3U
+        $dinamicData = "";
+        $indexMainLoop = 1;
+
+        foreach ($listChannels as $channel) {
+            $indexMainLoop ++;
+
+            foreach ($channel as $content) {
+              $dinamicData .= $headerChannel.' '.$indexMainLoop.'
+              '.$content.'
+               ';
+            }
+        }
+
+        $resultData = $startList.'
+        '.$dinamicData;
+
+
+        $estaticData = '#EXTM3U
 #EXTINF:-1,Canal 1 (youtube)
 https://www.youtube.com/watch?v=1RwMFNy8UdM
 #EXTINF:-1,Canal 1 (youtube)
@@ -74,7 +85,12 @@ https://www.youtube.com/watch?v=tzviFoVfwFo
 #EXTINF:-1,Canal 3 (youtube)
 https://www.youtube.com/watch?v=-pitqeSUPX4
 #EXTINF:-1,Canal 4 (imagen)
-https://www.bioenciclopedia.com/wp-content/uploads/2016/07/caballo.jpg',
+https://www.bioenciclopedia.com/wp-content/uploads/2016/07/caballo.jpg';
+
+
+
+        $response = new Response(
+            $resultData,
             Response::HTTP_OK,
             ['content-type' => 'text/plain']
         );
