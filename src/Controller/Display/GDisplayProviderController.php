@@ -32,7 +32,7 @@ https://www.bioenciclopedia.com/wp-content/uploads/2016/07/caballo.jpg
 class GDisplayProviderController extends AbstractController
 {
     /**
-     * @Route("/gdisplay/list", name="generate_display_list")
+     * @Route("/raw/123", name="generate_display_list")
      */
     public function generateDisplayList(Request $request): Response
     {
@@ -43,7 +43,7 @@ class GDisplayProviderController extends AbstractController
         $startList = "#EXTM3U";
         $baseChannel = '#EXTINF:-1,';
         $titleChannel = 'Canal';
-        $headerChannel = $baseChannel.$titleChannel;
+        $headerChannel = $baseChannel . $titleChannel;
 
         $channel1 = ['https://www.youtube.com/watch?v=1RwMFNy8UdM', 'https://www.youtube.com/watch?v=_iCETXJFhO8'];
         $channel2 = ['https://www.youtube.com/watch?v=7fvHStnxT6k', 'https://www.youtube.com/watch?v=UR0La7_koW4'];
@@ -52,10 +52,37 @@ class GDisplayProviderController extends AbstractController
 
         $listChannels = [$channel1, $channel2, $channel3, $channel4];
 
-        return $this->render('gdisplay_provider/index.html.twig', [
+        $content = $this->render('gdisplay_provider/index.html.twig', [
             'start_list' => $startList,
             'header_channel' => $headerChannel,
             'list_channels' => $listChannels
         ]);
+
+
+        $response = new Response(
+            '#EXTM3U
+#EXTINF:-1,Canal 1 (youtube)
+https://www.youtube.com/watch?v=1RwMFNy8UdM
+#EXTINF:-1,Canal 1 (youtube)
+https://www.youtube.com/watch?v=_iCETXJFhO8
+#EXTINF:-1,Canal 2 (youtube)
+https://www.youtube.com/watch?v=7fvHStnxT6k
+#EXTINF:-1,Canal 2 (youtube)
+https://www.youtube.com/watch?v=UR0La7_koW4
+#EXTINF:-1,Canal 3 (youtube)
+https://www.youtube.com/watch?v=tzviFoVfwFo
+#EXTINF:-1,Canal 3 (youtube)
+https://www.youtube.com/watch?v=-pitqeSUPX4
+#EXTINF:-1,Canal 4 (imagen)
+https://www.bioenciclopedia.com/wp-content/uploads/2016/07/caballo.jpg',
+            Response::HTTP_OK,
+            ['content-type' => 'text/plain']
+        );
+
+        return $response;
+
+
+
     }
+
 }
