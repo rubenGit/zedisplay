@@ -1,0 +1,14 @@
+
+{{ start_list |raw }}
+
+{% for channel in list_channels %}
+
+    {% set index_main_loop = "" ~ loop.index%}
+
+    {% for content in channel %}
+        {{ header_channel }} {{ index_main_loop  }}
+
+        {{ content }}
+    {% endfor %}
+
+{% endfor %}
