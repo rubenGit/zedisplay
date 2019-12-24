@@ -39,6 +39,10 @@ class Content
      */
     private $client;
 
+    /**
+     *@ORM\ManyToOne(targetEntity="App\Entity\Channel", inversedBy="contents", cascade={"persist"})
+     */
+    private $channel;
 
     /**
      * It only stores the name of the image associated with the product.
@@ -97,12 +101,6 @@ class Content
         return $this->image;
     }
 
-    /**
-     *
-     *@ORM\OneToMany(targetEntity="App\Entity\Device", mappedBy="content", cascade={"persist"})
-     */
-    private $device;
-
     public function __toString()
     {
         return $this->name ;
@@ -117,7 +115,6 @@ class Content
         } catch (\Exception $exception) {
             // Do something
         }
-        $this->device = new ArrayCollection();
         $this->updatedAt = new \DateTime('NOW');
     }
 
@@ -157,37 +154,6 @@ class Content
         return $this;
     }
 
-    /**
-     * @return Collection|Device[]
-     */
-    public function getDevice(): Collection
-    {
-        return $this->device;
-    }
-
-    public function addDevice(Device $device): self
-    {
-        if (!$this->device->contains($device)) {
-            $this->device[] = $device;
-            $device->setContent($this);
-        }
-
-        return $this;
-    }
-
-    public function removeDevice(Device $device): self
-    {
-        if ($this->device->contains($device)) {
-            $this->device->removeElement($device);
-            // set the owning side to null (unless already changed)
-            if ($device->getContent() === $this) {
-                $device->setContent(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getClient(): ?Client
     {
         return $this->client;
@@ -208,6 +174,18 @@ class Content
     public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getChannel(): ?Channel
+    {
+        return $this->channel;
+    }
+
+    public function setChannel(?Channel $channel): self
+    {
+        $this->channel = $channel;
 
         return $this;
     }

@@ -121,7 +121,10 @@ class Client
      *@ORM\OneToMany(targetEntity="App\Entity\Content", mappedBy="client")
      */
     private $contents;
-
+    /**
+     *@ORM\OneToMany(targetEntity="App\Entity\Channel", mappedBy="client")
+     */
+    private $channels;
 
     public function __construct()
     {
@@ -131,6 +134,7 @@ class Client
         $this->establishments = new ArrayCollection();
         $this->devices = new ArrayCollection();
         $this->contents = new ArrayCollection();
+        $this->channels = new ArrayCollection();
     }
 
     /**
@@ -488,6 +492,37 @@ class Client
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Channel[]
+     */
+    public function getChannels(): Collection
+    {
+        return $this->channels;
+    }
+
+    public function addChannel(Channel $channel): self
+    {
+        if (!$this->channels->contains($channel)) {
+            $this->channels[] = $channel;
+            $channel->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeChannel(Channel $channel): self
+    {
+        if ($this->channels->contains($channel)) {
+            $this->channels->removeElement($channel);
+            // set the owning side to null (unless already changed)
+            if ($channel->getClient() === $this) {
+                $channel->setClient(null);
+            }
+        }
 
         return $this;
     }

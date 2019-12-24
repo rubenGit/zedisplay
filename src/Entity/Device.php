@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Traits\CreatedUpdatedTrait;
 use App\Traits\IdTrait;
@@ -24,11 +26,10 @@ class Device
      */
     private $client;
 
-
     /**
-     *@ORM\ManyToOne(targetEntity="App\Entity\Content", inversedBy="device", cascade={"persist"})
+     *@ORM\OneToMany(targetEntity="App\Entity\Channel", mappedBy="device", cascade={"persist"})
      */
-    private $content;
+    private $channels;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -48,6 +49,7 @@ class Device
         } catch (\Exception $exception) {
             // Do something
         }
+        $this->channels = new ArrayCollection();
     }
 
     public function getName(): ?string
@@ -86,15 +88,36 @@ class Device
         return $this;
     }
 
-    public function getContent(): ?Content
+    /**
+     * @return Collection|Channel[]
+     */
+    public function getChannels(): Collection
     {
-        return $this->content;
+        return $this->channels;
     }
 
-    public function setContent(?Content $content): self
+    public function addChannel(Channel $channel): self
     {
-        $this->content = $content;
+        if (!$this->channels->contains($channel)) {
+            $this->channels[] = $channel;
+            $channel->setDevice($this);
+        }
 
         return $this;
     }
+
+    public function removeChannel(Channel $channel): self
+    {
+        if ($this->channels->contains($channel)) {
+            $this->channels->removeElement($channel);
+            // set the owning side to null (unless already changed)
+            if ($channel->getDevice() === $this) {
+                $channel->setDevice(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }
