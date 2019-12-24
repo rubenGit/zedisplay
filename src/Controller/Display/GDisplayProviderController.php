@@ -52,8 +52,6 @@ class GDisplayProviderController extends AbstractController
 
         $listChannels = [$channel1, $channel2, $channel3, $channel4];
 
-
-
         $dinamicData = "";
         $indexMainLoop = 1;
 
