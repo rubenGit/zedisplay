@@ -69,24 +69,6 @@ class GDisplayProviderController extends AbstractController
         '.$dinamicData;
 
 
-        $estaticData = '#EXTM3U
-#EXTINF:-1,Canal 1 (youtube)
-https://www.youtube.com/watch?v=1RwMFNy8UdM
-#EXTINF:-1,Canal 1 (youtube)
-https://www.youtube.com/watch?v=_iCETXJFhO8
-#EXTINF:-1,Canal 2 (youtube)
-https://www.youtube.com/watch?v=7fvHStnxT6k
-#EXTINF:-1,Canal 2 (youtube)
-https://www.youtube.com/watch?v=UR0La7_koW4
-#EXTINF:-1,Canal 3 (youtube)
-https://www.youtube.com/watch?v=tzviFoVfwFo
-#EXTINF:-1,Canal 3 (youtube)
-https://www.youtube.com/watch?v=-pitqeSUPX4
-#EXTINF:-1,Canal 4 (imagen)
-https://www.bioenciclopedia.com/wp-content/uploads/2016/07/caballo.jpg';
-
-
-
         $response = new Response(
             $resultData,
             Response::HTTP_OK,
