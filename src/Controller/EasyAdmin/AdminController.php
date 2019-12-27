@@ -177,6 +177,7 @@ class AdminController extends EasyAdminController
                 $form->add('channels', EntityType::class, array(
                     'class' => 'App:Channel',
                     'multiple' => true,
+                    'expanded' => true,
                     'query_builder' => function (EntityRepository $er)  {
                         return $er->createQueryBuilder('entity')
                             ->where("entity.client IN(:idClient)")
@@ -195,7 +196,7 @@ class AdminController extends EasyAdminController
                 $form->add('Contents',  EntityType::class,  array(
                     'class' => 'App:Content',
                     'multiple' => true,
-                    'expanded' => false,
+                    'expanded' => true,
                     'query_builder' => function (EntityRepository $er)  {
                         return $er->createQueryBuilder('entity')
                             ->where("entity.client IN(:idClient)")
