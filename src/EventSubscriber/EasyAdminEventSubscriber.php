@@ -9,6 +9,7 @@
 namespace App\EventSubscriber;
 
 
+use App\Entity\Channel;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
@@ -61,6 +62,7 @@ class EasyAdminEventSubscriber implements EventSubscriberInterface
             case $entity instanceof GroupCompany:
             case $entity instanceof Establishment:
             case $entity instanceof Device:
+            case $entity instanceof Channel:
             case $entity instanceof Content:
             $this->persisClientInSession($entity);
             break;

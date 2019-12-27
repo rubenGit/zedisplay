@@ -6,6 +6,8 @@ use App\Traits\IdTrait;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\JoinTable;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -21,7 +23,7 @@ class Channel
     private $name;
 
     /**
-     *@ORM\OneToMany(targetEntity="App\Entity\Content", mappedBy="channel", cascade={"persist"})
+     *@ORM\ManyToMany(targetEntity="App\Entity\Content", mappedBy="channels", cascade={"persist","remove"})
      */
     private $contents;
 
@@ -31,9 +33,13 @@ class Channel
     private $client;
 
     /**
-     *@ORM\ManyToOne(targetEntity="App\Entity\Device", inversedBy="channels", cascade={"persist"})
+     *@ORM\ManyToMany(targetEntity="App\Entity\Device", inversedBy="channels", cascade={"persist","remove"})
+     *@JoinTable(name="channels_devices",
+     *      joinColumns={@JoinColumn(name="channel_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@JoinColumn(name="device_id", referencedColumnName="id")}
+     *      )
      */
-    private $device;
+    private $devices;
 
     public function __toString()
     {
@@ -49,10 +55,7 @@ class Channel
             // Do something
         }
         $this->contents = new ArrayCollection();
-    }
-    public function getId(): ?int
-    {
-        return $this->id;
+        $this->devices = new ArrayCollection();
     }
 
     public function getName(): ?string
@@ -63,37 +66,6 @@ class Channel
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Content[]
-     */
-    public function getContents(): Collection
-    {
-        return $this->contents;
-    }
-
-    public function addContent(Content $content): self
-    {
-        if (!$this->contents->contains($content)) {
-            $this->contents[] = $content;
-            $content->setChannel($this);
-        }
-
-        return $this;
-    }
-
-    public function removeContent(Content $content): self
-    {
-        if ($this->contents->contains($content)) {
-            $this->contents->removeElement($content);
-            // set the owning side to null (unless already changed)
-            if ($content->getChannel() === $this) {
-                $content->setChannel(null);
-            }
-        }
 
         return $this;
     }
@@ -110,14 +82,56 @@ class Channel
         return $this;
     }
 
-    public function getDevice(): ?Device
+    /**
+     * @return Collection|Device[]
+     */
+    public function getDevices(): Collection
     {
-        return $this->device;
+        return $this->devices;
     }
 
-    public function setDevice(?Device $device): self
+    public function addDevice(Device $device): self
     {
-        $this->device = $device;
+        if (!$this->devices->contains($device)) {
+            $this->devices[] = $device;
+        }
+
+        return $this;
+    }
+
+    public function removeDevice(Device $device): self
+    {
+        if ($this->devices->contains($device)) {
+            $this->devices->removeElement($device);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Content[]
+     */
+    public function getContents(): Collection
+    {
+        return $this->contents;
+    }
+
+    public function addContent(Content $content): self
+    {
+        if (!$this->contents->contains($content)) {
+            $this->contents[] = $content;
+            $content->addChannel($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContent(Content $content): self
+    {
+        if ($this->contents->contains($content)) {
+            $this->contents->removeElement($content);
+            $content->removeChannel($this);
+        }
 
         return $this;
     }

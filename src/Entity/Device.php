@@ -27,7 +27,7 @@ class Device
     private $client;
 
     /**
-     *@ORM\OneToMany(targetEntity="App\Entity\Channel", mappedBy="device", cascade={"persist"})
+     *@ORM\ManyToMany(targetEntity="App\Entity\Channel", mappedBy="devices", cascade={"persist","remove"})
      */
     private $channels;
 
@@ -100,7 +100,7 @@ class Device
     {
         if (!$this->channels->contains($channel)) {
             $this->channels[] = $channel;
-            $channel->setDevice($this);
+            $channel->addDevice($this);
         }
 
         return $this;
@@ -110,14 +110,13 @@ class Device
     {
         if ($this->channels->contains($channel)) {
             $this->channels->removeElement($channel);
-            // set the owning side to null (unless already changed)
-            if ($channel->getDevice() === $this) {
-                $channel->setDevice(null);
-            }
+            $channel->removeDevice($this);
         }
 
         return $this;
     }
+
+
 
 
 }

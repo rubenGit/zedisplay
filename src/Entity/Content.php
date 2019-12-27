@@ -5,6 +5,8 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\JoinTable;
 use Ramsey\Uuid\Uuid;
 use Symfony\Component\HttpFoundation\File\File;
 use App\Traits\IdTrait;
@@ -40,9 +42,13 @@ class Content
     private $client;
 
     /**
-     *@ORM\ManyToOne(targetEntity="App\Entity\Channel", inversedBy="contents", cascade={"persist"})
+     *@ORM\ManyToMany(targetEntity="App\Entity\Channel", inversedBy="contents", cascade={"persist","remove"})
+     *@JoinTable(name="contents_channels",
+     *      joinColumns={@JoinColumn(name="content_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@JoinColumn(name="channel_id", referencedColumnName="id")}
+     *      )
      */
-    private $channel;
+    private $channels;
 
     /**
      * It only stores the name of the image associated with the product.
@@ -116,6 +122,7 @@ class Content
             // Do something
         }
         $this->updatedAt = new \DateTime('NOW');
+        $this->channels = new ArrayCollection();
     }
 
     public function getName(): ?string
@@ -178,16 +185,32 @@ class Content
         return $this;
     }
 
-    public function getChannel(): ?Channel
+    /**
+     * @return Collection|Channel[]
+     */
+    public function getChannels(): Collection
     {
-        return $this->channel;
+        return $this->channels;
     }
 
-    public function setChannel(?Channel $channel): self
+    public function addChannel(Channel $channel): self
     {
-        $this->channel = $channel;
+        if (!$this->channels->contains($channel)) {
+            $this->channels[] = $channel;
+        }
 
         return $this;
     }
+
+    public function removeChannel(Channel $channel): self
+    {
+        if ($this->channels->contains($channel)) {
+            $this->channels->removeElement($channel);
+        }
+
+        return $this;
+    }
+
+
 
 }

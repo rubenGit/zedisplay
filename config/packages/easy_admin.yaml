@@ -8,6 +8,7 @@ easy_admin:
             - { entity: 'GroupCompany', icon: 'circle' , permission: [ROLE_ADMIN, ROLE_SUPER_ADMIN] }
             - { entity: 'Establishment', icon: 'building', permission:  [ROLE_ADMIN, ROLE_SUPER_ADMIN] }
             - { entity: 'Device', icon: 'tv', permission: [ROLE_ADMIN, ROLE_SUPER_ADMIN, ROLE_USER]}
+            - { entity: 'Channel', icon: 'book', permission: [ROLE_ADMIN, ROLE_SUPER_ADMIN, ROLE_USER] }
             - { entity: 'Content', icon: 'book', permission: [ROLE_ADMIN, ROLE_SUPER_ADMIN, ROLE_USER] }
 
         assets:
@@ -140,29 +141,44 @@ easy_admin:
                     - id
                     - establishment
                     - name
-                    - { property: 'content', type_options: { required: true } }
-                    - content
+                    - channels
             show:
                 fields:
                     - id
                     - establishment
                     - name
-                    - { property: 'content', type_options: { required: true } }
+                    - channels
 
             new:
                 role: [ROLE_ADMIN, ROLE_SUPER_ADMIN]
                 fields:
                     - establishment
                     - name
-                    - content
+                    - channels
             edit:
                 role: [ROLE_ADMIN, ROLE_SUPER_ADMIN, ROLE_USER]
                 fields:
                     - establishment
                     - name
-                    - content
+                    - channels
             delete:
                 role: [ROLE_ADMIN, ROLE_SUPER_ADMIN]
+
+        Channel:
+            class: App\Entity\Channel
+            list:
+                fields:
+                    - name
+                    - contents
+            show:
+                fields:
+                    - name
+                    - contents
+
+            form:
+                fields:
+                    - name
+#                    - contents
 
         Content:
             class: App\Entity\Content
