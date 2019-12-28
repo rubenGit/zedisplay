@@ -40,9 +40,9 @@ class Content
     private $client;
 
     /**
-     *@ORM\ManyToOne(targetEntity="App\Entity\Channel", inversedBy="contents", cascade={"persist"})
+     *@ORM\ManyToOne(targetEntity="App\Entity\Device", inversedBy="contents", cascade={"persist", "merge", "detach"})
      */
-    private $channel;
+    private $device;
 
     /**
      * It only stores the name of the image associated with the product.
@@ -178,14 +178,14 @@ class Content
         return $this;
     }
 
-    public function getChannel(): ?Channel
+    public function getDevice(): ?Device
     {
-        return $this->channel;
+        return $this->device;
     }
 
-    public function setChannel(?Channel $channel): self
+    public function setDevice(?Device $device): self
     {
-        $this->channel = $channel;
+        $this->device = $device;
 
         return $this;
     }

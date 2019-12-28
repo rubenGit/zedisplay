@@ -140,27 +140,27 @@ easy_admin:
                     - id
                     - establishment
                     - name
-                    - { property: 'content', type_options: { required: true } }
+                    - { property: 'contents', type_options: { required: true } }
                     - content
             show:
                 fields:
                     - id
                     - establishment
                     - name
-                    - { property: 'content', type_options: { required: true } }
+                    - { property: 'contents', type_options: { required: true } }
 
             new:
                 role: [ROLE_ADMIN, ROLE_SUPER_ADMIN]
                 fields:
                     - establishment
                     - name
-                    - content
+                    - { property: 'contents' }
             edit:
                 role: [ROLE_ADMIN, ROLE_SUPER_ADMIN, ROLE_USER]
                 fields:
                     - establishment
                     - name
-                    - content
+                    - { property: 'contents' }
             delete:
                 role: [ROLE_ADMIN, ROLE_SUPER_ADMIN]
 

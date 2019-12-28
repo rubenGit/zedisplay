@@ -27,9 +27,9 @@ class Device
     private $client;
 
     /**
-     *@ORM\OneToMany(targetEntity="App\Entity\Channel", mappedBy="device", cascade={"persist"})
+     *@ORM\ManyToOne(targetEntity="App\Entity\Content", inversedBy="device" , cascade={"persist", "merge", "detach"})
      */
-    private $channels;
+    private $contents;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -49,7 +49,6 @@ class Device
         } catch (\Exception $exception) {
             // Do something
         }
-        $this->channels = new ArrayCollection();
     }
 
     public function getName(): ?string
@@ -88,36 +87,18 @@ class Device
         return $this;
     }
 
-    /**
-     * @return Collection|Channel[]
-     */
-    public function getChannels(): Collection
+    public function getContents(): ?Content
     {
-        return $this->channels;
+        return $this->contents;
     }
 
-    public function addChannel(Channel $channel): self
+    public function setContents(?Content $contents): self
     {
-        if (!$this->channels->contains($channel)) {
-            $this->channels[] = $channel;
-            $channel->setDevice($this);
-        }
+        $this->contents = $contents;
 
         return $this;
     }
 
-    public function removeChannel(Channel $channel): self
-    {
-        if ($this->channels->contains($channel)) {
-            $this->channels->removeElement($channel);
-            // set the owning side to null (unless already changed)
-            if ($channel->getDevice() === $this) {
-                $channel->setDevice(null);
-            }
-        }
-
-        return $this;
-    }
 
 
 }

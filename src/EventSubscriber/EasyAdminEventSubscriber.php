@@ -58,15 +58,35 @@ class EasyAdminEventSubscriber implements EventSubscriberInterface
         $entity = $event->getSubject();
 
         switch($entity) {
+            case $entity instanceof Device:
+                $this->persisClientInSession($entity);
+                $this->persistContentsInThisDevice($entity);
+            break;
+
             case $entity instanceof GroupCompany:
             case $entity instanceof Establishment:
-            case $entity instanceof Device:
             case $entity instanceof Content:
-            $this->persisClientInSession($entity);
+                $this->persisClientInSession($entity);
             break;
         }
     }
 
+    private function persistContentsInThisDevice(Device $device)
+    {
+//        $content = $device->getContent();
+//        $de$content->getDevices();
+//
+//        foreach ($contents as $content)
+//        {
+//            $content->addDevice($device);
+//            //$content->setDevice($device);
+//
+//           // $content->setDevice($device);
+//            $this->em->persist($content);
+//        }
+//
+//        $this->em->flush();
+    }
 
     private function persisClientInSession($entity)
     {
