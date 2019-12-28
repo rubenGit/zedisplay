@@ -23,7 +23,7 @@ class Channel
     private $name;
 
     /**
-     *@ORM\ManyToMany(targetEntity="App\Entity\Content", mappedBy="channels", cascade={"persist","remove"})
+     *@ORM\ManyToMany(targetEntity="App\Entity\Content", mappedBy="channels", cascade={"persist","remove"} )
      */
     private $contents;
 
@@ -33,7 +33,7 @@ class Channel
     private $client;
 
     /**
-     *@ORM\ManyToMany(targetEntity="App\Entity\Device", inversedBy="channels", cascade={"persist","remove"})
+     *@ORM\ManyToMany(targetEntity="App\Entity\Device", inversedBy="channels", cascade={"persist","remove"}, fetch="EXTRA_LAZY")
      *@JoinTable(name="channels_devices",
      *      joinColumns={@JoinColumn(name="channel_id", referencedColumnName="id")},
      *      inverseJoinColumns={@JoinColumn(name="device_id", referencedColumnName="id")}

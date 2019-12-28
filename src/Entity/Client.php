@@ -128,7 +128,10 @@ class Client
 
     public function __construct()
     {
-        $this->id = Uuid::uuid4();
+        try {
+            $this->id = Uuid::uuid4();
+        } catch (\Exception $e) {
+        }
         $this->users = new ArrayCollection();
         $this->groupCompany = new ArrayCollection();
         $this->establishments = new ArrayCollection();

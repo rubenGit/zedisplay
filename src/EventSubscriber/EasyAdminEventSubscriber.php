@@ -79,21 +79,22 @@ class EasyAdminEventSubscriber implements EventSubscriberInterface
 
     private function persistContentsThisChannel(Channel $channel)
     {
-        $contents = $channel->getContents();
+        $contentsInMemory = $channel->getContents();
 
-        foreach ($contents as $content){
-            $content->addChannel($channel);
-            $this->em->persist($content);
+         foreach ($contentsInMemory as $contentInMemory){
+            $contentInMemory->addChannel($channel);
+            $this->em->persist($contentInMemory);
         }
 
         $this->em->flush();
     }
 
+
     private function persistChannelsInThisDevice(Device $device)
     {
-        $channels = $device->getChannels();
+        $channelsInMemory = $device->getChannels();
 
-        foreach ($channels as $channel){
+        foreach ($channelsInMemory as $channel){
             $channel->addDevice($device);
             $this->em->persist($device);
         }

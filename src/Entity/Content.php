@@ -42,7 +42,7 @@ class Content
     private $client;
 
     /**
-     *@ORM\ManyToMany(targetEntity="App\Entity\Channel", inversedBy="contents", cascade={"persist","remove"})
+     *@ORM\ManyToMany(targetEntity="App\Entity\Channel", inversedBy="contents", cascade={"persist","remove"}, fetch="EXTRA_LAZY" )
      *@JoinTable(name="contents_channels",
      *      joinColumns={@JoinColumn(name="content_id", referencedColumnName="id")},
      *      inverseJoinColumns={@JoinColumn(name="channel_id", referencedColumnName="id")}

@@ -29,6 +29,13 @@ class ContentRepository extends ServiceEntityRepository
             ;
     }
 
+    public function findAllContentsByChannel()
+    {
+        return $this->createQueryBuilder('c')
+            ->leftJoin('c.id', 'idContent_in_contents_channels')
+            ->addSelect('idContent_in_contents_channels');
+    }
+
     // /**
     //  * @return Content[] Returns an array of Content objects
     //  */
