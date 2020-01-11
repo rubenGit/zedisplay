@@ -2,6 +2,7 @@
 
 namespace App\Controller\EasyAdmin;
 
+use App\Entity\Channel;
 use Doctrine\ORM\EntityRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\EasyAdminController;
 use EasyCorp\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
@@ -74,6 +75,13 @@ class AdminController extends EasyAdminController
                     break;
 
                 case User::class:
+                    $response->Where('entity.client IN(:idClient)');
+                    $response->setParameters([
+                        'idClient' => $this->idClient
+                    ]);
+                    break;
+
+                case Channel::class:
                     $response->Where('entity.client IN(:idClient)');
                     $response->setParameters([
                         'idClient' => $this->idClient
@@ -166,9 +174,11 @@ class AdminController extends EasyAdminController
                     }
                 ));
 
-                $form->add('contents', EntityType::class, array(
-                    'class' => 'App:Content',
-                    'multiple' => 'true',
+
+                $form->add('channels', EntityType::class, array(
+                    'class' => 'App:Channel',
+                    'multiple' => true,
+                    'expanded' => true,
                     'query_builder' => function (EntityRepository $er)  {
                         return $er->createQueryBuilder('entity')
                             ->where("entity.client IN(:idClient)")
@@ -179,6 +189,25 @@ class AdminController extends EasyAdminController
                     }
                 ));
             }
+
+
+
+            if ($entity instanceof Channel) {
+
+                $form->add('Contents',  EntityType::class,  array(
+                    'class' => 'App:Content',
+                    'multiple' => true,
+                    'query_builder' => function (EntityRepository $er)  {
+                        return $er->createQueryBuilder('entity')
+                            ->where("entity.client IN(:idClient)")
+                            ->setParameters([
+                                'idClient' => $this->idClient
+                            ])
+                            ->orderBy('entity.client', 'ASC');
+                    }
+                ));
+            }
+
         }
     }
     /**

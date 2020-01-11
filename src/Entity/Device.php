@@ -9,7 +9,6 @@ use App\Traits\CreatedUpdatedTrait;
 use App\Traits\IdTrait;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\JoinTable;
-use Doctrine\ORM\Mapping\ManyToMany;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -29,20 +28,22 @@ class Device
      */
     private $client;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
 
     /**
-     * Many Users have Many Groups.
-     * @ManyToMany(targetEntity="App\Entity\Content")
-     * @JoinTable(name="device_content",
+     *@ORM\ManyToMany(targetEntity="App\Entity\Channel", fetch="EXTRA_LAZY")
+     *@JoinTable(name="device_channel",
      *      joinColumns={@JoinColumn(name="device_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@JoinColumn(name="content_id", referencedColumnName="id")}
+     *      inverseJoinColumns={@JoinColumn(name="channel_id", referencedColumnName="id")}
      *      )
      */
-    private $contents;
+    private $channels;
+
+
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=false)
+     */
+    private $name;
 
     public function __toString()
     {
@@ -57,7 +58,7 @@ class Device
         } catch (\Exception $exception) {
             // Do something
         }
-        $this->contents = new ArrayCollection();
+        $this->channels = new ArrayCollection();
     }
 
     public function getName(): ?string
@@ -97,28 +98,26 @@ class Device
     }
 
     /**
-     * @return Collection|Content[]
+     * @return Collection|Channel[]
      */
-    public function getContents(): Collection
+    public function getChannels(): Collection
     {
-        return $this->contents;
+        return $this->channels;
     }
 
-    public function addContent(Content $content): self
+    public function addChannel(Channel $channel): self
     {
-        if (!$this->contents->contains($content)) {
-            $this->contents[] = $content;
-            $content->addDevice($this);
+        if (!$this->channels->contains($channel)) {
+            $this->channels[] = $channel;
         }
 
         return $this;
     }
 
-    public function removeContent(Content $content): self
+    public function removeChannel(Channel $channel): self
     {
-        if ($this->contents->contains($content)) {
-            $this->contents->removeElement($content);
-            $content->removeDevice($this);
+        if ($this->channels->contains($channel)) {
+            $this->channels->removeElement($channel);
         }
 
         return $this;

@@ -9,6 +9,7 @@
 namespace App\EventSubscriber;
 
 
+use App\Entity\Channel;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
@@ -16,6 +17,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\Security\Core\Security;
 use App\Entity\Content;
+use App\Entity\Device;
 use App\Entity\Establishment;
 use App\Entity\GroupCompany;
 
@@ -59,8 +61,10 @@ class EasyAdminEventSubscriber implements EventSubscriberInterface
         switch($entity) {
             case $entity instanceof GroupCompany:
             case $entity instanceof Establishment:
+            case $entity instanceof Device:
+            case $entity instanceof Channel:
             case $entity instanceof Content:
-                $this->persisClientInSession($entity);
+            $this->persisClientInSession($entity);
             break;
         }
     }
