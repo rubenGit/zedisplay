@@ -7,6 +7,8 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Traits\CreatedUpdatedTrait;
 use App\Traits\IdTrait;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\JoinTable;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -26,8 +28,13 @@ class Device
      */
     private $client;
 
+
     /**
-     *@ORM\ManyToMany(targetEntity="App\Entity\Channel", mappedBy="devices", cascade={"persist","remove"})
+     *@ORM\ManyToMany(targetEntity="App\Entity\Channel", fetch="EXTRA_LAZY")
+     *@JoinTable(name="device_channel",
+     *      joinColumns={@JoinColumn(name="device_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@JoinColumn(name="channel_id", referencedColumnName="id")}
+     *      )
      */
     private $channels;
 

@@ -196,7 +196,6 @@ class AdminController extends EasyAdminController
                 $form->add('Contents',  EntityType::class,  array(
                     'class' => 'App:Content',
                     'multiple' => true,
-                    'expanded' => true,
                     'query_builder' => function (EntityRepository $er)  {
                         return $er->createQueryBuilder('entity')
                             ->where("entity.client IN(:idClient)")

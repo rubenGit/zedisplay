@@ -9,7 +9,6 @@
 namespace App\EventSubscriber;
 
 
-use App\Entity\Channel;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
@@ -59,16 +58,6 @@ class EasyAdminEventSubscriber implements EventSubscriberInterface
         $entity = $event->getSubject();
 
         switch($entity) {
-            case $entity instanceof Device:
-              $this->persisClientInSession($entity);
-              $this->persistChannelsInThisDevice($entity);
-            break;
-
-            case $entity instanceof Channel:
-              $this->persisClientInSession($entity);
-              $this->persistContentsThisChannel($entity);
-            break;
-
             case $entity instanceof GroupCompany:
             case $entity instanceof Establishment:
             case $entity instanceof Content:
@@ -76,33 +65,6 @@ class EasyAdminEventSubscriber implements EventSubscriberInterface
             break;
         }
     }
-
-    private function persistContentsThisChannel(Channel $channel)
-    {
-        $contentsInMemory = $channel->getContents();
-
-         foreach ($contentsInMemory as $contentInMemory){
-            $contentInMemory->addChannel($channel);
-            $this->em->persist($contentInMemory);
-        }
-
-        $this->em->flush();
-    }
-
-
-    private function persistChannelsInThisDevice(Device $device)
-    {
-        $channelsInMemory = $device->getChannels();
-
-        foreach ($channelsInMemory as $channel){
-            $channel->addDevice($device);
-            $this->em->persist($device);
-        }
-
-        $this->em->flush();
-    }
-
-
 
     private function persisClientInSession($entity)
     {

@@ -42,15 +42,6 @@ class Content
     private $client;
 
     /**
-     *@ORM\ManyToMany(targetEntity="App\Entity\Channel", inversedBy="contents", cascade={"persist","remove"}, fetch="EXTRA_LAZY" )
-     *@JoinTable(name="contents_channels",
-     *      joinColumns={@JoinColumn(name="content_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@JoinColumn(name="channel_id", referencedColumnName="id")}
-     *      )
-     */
-    private $channels;
-
-    /**
      * It only stores the name of the image associated with the product.
      *
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -122,7 +113,6 @@ class Content
             // Do something
         }
         $this->updatedAt = new \DateTime('NOW');
-        $this->channels = new ArrayCollection();
     }
 
     public function getName(): ?string
@@ -184,33 +174,5 @@ class Content
 
         return $this;
     }
-
-    /**
-     * @return Collection|Channel[]
-     */
-    public function getChannels(): Collection
-    {
-        return $this->channels;
-    }
-
-    public function addChannel(Channel $channel): self
-    {
-        if (!$this->channels->contains($channel)) {
-            $this->channels[] = $channel;
-        }
-
-        return $this;
-    }
-
-    public function removeChannel(Channel $channel): self
-    {
-        if ($this->channels->contains($channel)) {
-            $this->channels->removeElement($channel);
-        }
-
-        return $this;
-    }
-
-
 
 }

@@ -23,7 +23,11 @@ class Channel
     private $name;
 
     /**
-     *@ORM\ManyToMany(targetEntity="App\Entity\Content", mappedBy="channels", cascade={"persist","remove"} )
+     *@ORM\ManyToMany(targetEntity="App\Entity\Content", fetch="EXTRA_LAZY")
+     *@JoinTable(name="channel_content",
+     *      joinColumns={@JoinColumn(name="channel_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@JoinColumn(name="content_id", referencedColumnName="id")}
+     *      )
      */
     private $contents;
 
@@ -32,14 +36,6 @@ class Channel
      */
     private $client;
 
-    /**
-     *@ORM\ManyToMany(targetEntity="App\Entity\Device", inversedBy="channels", cascade={"persist","remove"}, fetch="EXTRA_LAZY")
-     *@JoinTable(name="channels_devices",
-     *      joinColumns={@JoinColumn(name="channel_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@JoinColumn(name="device_id", referencedColumnName="id")}
-     *      )
-     */
-    private $devices;
 
     public function __toString()
     {
@@ -55,7 +51,6 @@ class Channel
             // Do something
         }
         $this->contents = new ArrayCollection();
-        $this->devices = new ArrayCollection();
     }
 
     public function getName(): ?string
@@ -78,32 +73,6 @@ class Channel
     public function setClient(?Client $client): self
     {
         $this->client = $client;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Device[]
-     */
-    public function getDevices(): Collection
-    {
-        return $this->devices;
-    }
-
-    public function addDevice(Device $device): self
-    {
-        if (!$this->devices->contains($device)) {
-            $this->devices[] = $device;
-        }
-
-        return $this;
-    }
-
-    public function removeDevice(Device $device): self
-    {
-        if ($this->devices->contains($device)) {
-            $this->devices->removeElement($device);
-        }
 
         return $this;
     }
