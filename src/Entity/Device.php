@@ -7,6 +7,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Traits\CreatedUpdatedTrait;
 use App\Traits\IdTrait;
+use Doctrine\ORM\Mapping\JoinColumn;
+use Doctrine\ORM\Mapping\JoinTable;
+use Doctrine\ORM\Mapping\ManyToMany;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -27,14 +30,19 @@ class Device
     private $client;
 
     /**
-     *@ORM\ManyToOne(targetEntity="App\Entity\Content", inversedBy="device" , cascade={"persist", "merge", "detach"})
-     */
-    private $contents;
-
-    /**
      * @ORM\Column(type="string", length=255)
      */
     private $name;
+
+    /**
+     * Many Users have Many Groups.
+     * @ManyToMany(targetEntity="App\Entity\Content")
+     * @JoinTable(name="device_content",
+     *      joinColumns={@JoinColumn(name="device_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@JoinColumn(name="content_id", referencedColumnName="id")}
+     *      )
+     */
+    private $contents;
 
     public function __toString()
     {
@@ -49,6 +57,7 @@ class Device
         } catch (\Exception $exception) {
             // Do something
         }
+        $this->contents = new ArrayCollection();
     }
 
     public function getName(): ?string
@@ -87,18 +96,31 @@ class Device
         return $this;
     }
 
-    public function getContents(): ?Content
+    /**
+     * @return Collection|Content[]
+     */
+    public function getContents(): Collection
     {
         return $this->contents;
     }
 
-    public function setContents(?Content $contents): self
+    public function addContent(Content $content): self
     {
-        $this->contents = $contents;
+        if (!$this->contents->contains($content)) {
+            $this->contents[] = $content;
+            $content->addDevice($this);
+        }
 
         return $this;
     }
 
+    public function removeContent(Content $content): self
+    {
+        if ($this->contents->contains($content)) {
+            $this->contents->removeElement($content);
+            $content->removeDevice($this);
+        }
 
-
+        return $this;
+    }
 }

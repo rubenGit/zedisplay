@@ -16,7 +16,6 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\Security\Core\Security;
 use App\Entity\Content;
-use App\Entity\Device;
 use App\Entity\Establishment;
 use App\Entity\GroupCompany;
 
@@ -58,11 +57,6 @@ class EasyAdminEventSubscriber implements EventSubscriberInterface
         $entity = $event->getSubject();
 
         switch($entity) {
-            case $entity instanceof Device:
-                $this->persisClientInSession($entity);
-                $this->persistContentsInThisDevice($entity);
-            break;
-
             case $entity instanceof GroupCompany:
             case $entity instanceof Establishment:
             case $entity instanceof Content:
@@ -71,22 +65,6 @@ class EasyAdminEventSubscriber implements EventSubscriberInterface
         }
     }
 
-    private function persistContentsInThisDevice(Device $device)
-    {
-//        $content = $device->getContent();
-//        $de$content->getDevices();
-//
-//        foreach ($contents as $content)
-//        {
-//            $content->addDevice($device);
-//            //$content->setDevice($device);
-//
-//           // $content->setDevice($device);
-//            $this->em->persist($content);
-//        }
-//
-//        $this->em->flush();
-    }
 
     private function persisClientInSession($entity)
     {

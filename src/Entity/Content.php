@@ -40,11 +40,6 @@ class Content
     private $client;
 
     /**
-     *@ORM\ManyToOne(targetEntity="App\Entity\Device", inversedBy="contents", cascade={"persist", "merge", "detach"})
-     */
-    private $device;
-
-    /**
      * It only stores the name of the image associated with the product.
      *
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -174,18 +169,6 @@ class Content
     public function setUpdatedAt(\DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    public function getDevice(): ?Device
-    {
-        return $this->device;
-    }
-
-    public function setDevice(?Device $device): self
-    {
-        $this->device = $device;
 
         return $this;
     }

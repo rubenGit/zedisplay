@@ -163,18 +163,18 @@ class AdminController extends EasyAdminController
                     }
                 ));
 
-                $form->add('contents', EntityType::class, array(
-                    'class' => 'App:Content',
+//                $form->add('contents', EntityType::class, array(
+//                    'class' => 'App:Content',
 //                    'multiple' => 'true',
-                    'query_builder' => function (EntityRepository $er)  {
-                        return $er->createQueryBuilder('entity')
-                            ->where("entity.client IN(:idClient)")
-                            ->setParameters([
-                                'idClient' => $this->idClient
-                            ])
-                            ->orderBy('entity.client', 'ASC');
-                    }
-                ));
+//                    'query_builder' => function (EntityRepository $er)  {
+//                        return $er->createQueryBuilder('entity')
+//                            ->where("entity.client IN(:idClient)")
+//                            ->setParameters([
+//                                'idClient' => $this->idClient
+//                            ])
+//                            ->orderBy('entity.client', 'ASC');
+//                    }
+//                ));
             }
         }
     }
