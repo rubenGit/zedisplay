@@ -92,6 +92,9 @@ class AdminController extends EasyAdminController
         return $response;
     }
 
+
+
+
     /**
      * [***************************************************** filters according to the client *************************************************************]
      */
@@ -163,18 +166,18 @@ class AdminController extends EasyAdminController
                     }
                 ));
 
-//                $form->add('contents', EntityType::class, array(
-//                    'class' => 'App:Content',
-//                    'multiple' => 'true',
-//                    'query_builder' => function (EntityRepository $er)  {
-//                        return $er->createQueryBuilder('entity')
-//                            ->where("entity.client IN(:idClient)")
-//                            ->setParameters([
-//                                'idClient' => $this->idClient
-//                            ])
-//                            ->orderBy('entity.client', 'ASC');
-//                    }
-//                ));
+                $form->add('contents', EntityType::class, array(
+                    'class' => 'App:Content',
+                    'multiple' => 'true',
+                    'query_builder' => function (EntityRepository $er)  {
+                        return $er->createQueryBuilder('entity')
+                            ->where("entity.client IN(:idClient)")
+                            ->setParameters([
+                                'idClient' => $this->idClient
+                            ])
+                            ->orderBy('entity.client', 'ASC');
+                    }
+                ));
             }
         }
     }
