@@ -102,7 +102,6 @@ class AdminController extends EasyAdminController
 
 
 
-
     /**
      * [***************************************************** filters according to the client *************************************************************]
      */
