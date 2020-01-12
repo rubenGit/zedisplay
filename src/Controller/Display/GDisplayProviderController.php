@@ -49,5 +49,4 @@ class GDisplayProviderController extends AbstractController
 
         return $response;
     }
-
 }

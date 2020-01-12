@@ -12,10 +12,10 @@ homepage:
         _locale: '%locale%'
 
 
-
-save_streaming_data:
-    methods: ['POST','GET']
-    path: '/api/streaming'
-    controller: 'App\Controller\Api\ApiController::getUrltoLoadAction'
+# API OFF
+#save_streaming_data:
+#    methods: ['POST','GET']
+#    path: '/api/streaming'
+#    controller: 'App\Controller\Api\ApiController::getUrltoLoadAction'
 
 

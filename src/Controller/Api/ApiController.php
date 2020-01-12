@@ -49,7 +49,6 @@ class ApiController extends AbstractController
     private function serialize($data, $format = 'json')
     {
         return $this->serializer->serialize($data, $format,['json_encode_options' => JSON_UNESCAPED_SLASHES]);
-
     }
 
     /**
@@ -76,8 +75,6 @@ class ApiController extends AbstractController
             $result['stream'] = [
                 'state' => '200',
                 'info' => 'OK',
-                'url' => $device->getContent()->getUrl(),
-                'image' => $this->params->get('app.path.product_images').'/'. $device->getContent()->getImage()
             ];
         }
 
