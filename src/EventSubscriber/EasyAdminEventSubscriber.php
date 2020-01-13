@@ -15,6 +15,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\EventDispatcher\GenericEvent;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Security;
 use App\Entity\Content;
 use App\Entity\Device;
@@ -25,13 +26,16 @@ class EasyAdminEventSubscriber implements EventSubscriberInterface
 {
     private $em;
     private $security;
+    private $passwordEncoder;
 
     public function __construct(
         EntityManagerInterface $entityManager,
-        Security $security
+        Security $security,
+        UserPasswordEncoderInterface $passwordEncoder
     ) {
         $this->em = $entityManager;
         $this->security = $security;
+        $this->passwordEncoder = $passwordEncoder;
     }
 
     public static function getSubscribedEvents()
@@ -59,6 +63,9 @@ class EasyAdminEventSubscriber implements EventSubscriberInterface
         $entity = $event->getSubject();
 
         switch($entity) {
+            case $entity instanceof User:
+           // $this->setPassword($entity);
+            break;
             case $entity instanceof GroupCompany:
             case $entity instanceof Establishment:
             case $entity instanceof Device:
@@ -67,6 +74,17 @@ class EasyAdminEventSubscriber implements EventSubscriberInterface
             $this->persisClientInSession($entity);
             break;
         }
+    }
+
+    private function setPassword(User $user)
+    {
+       $plainPass = $user->getPlainPassword();
+
+       $passEncripted = $this->passwordEncoder->encodePassword($user, $plainPass);
+
+       $user->setPassword($passEncripted);
+
+       $this->em->persist($user);
     }
 
 

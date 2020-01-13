@@ -38,7 +38,7 @@ class User implements UserInterface, \Serializable
     use IdTrait;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=false)
      */
     private $enabled;
 
@@ -104,11 +104,12 @@ class User implements UserInterface, \Serializable
     /**
      * User constructor.
      * @param $id
+     * @throws \Exception
      */
     public function __construct()
     {
         $this->id = Uuid::uuid4();
-        $this->enabled = true;
+        $this->enabled = false;
     }
 
     public function __toString()

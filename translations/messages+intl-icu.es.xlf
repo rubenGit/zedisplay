@@ -271,7 +271,7 @@
 
             <trans-unit id="help.app_description">
                 <source>help.app_description</source>
-                <target><![CDATA[Esta <strong>aplicación demo</strong> ha sido programada con el framework Symfony para mostrar la forma recomendada de programar aplicaciones Symfony.]]></target>
+                <target><![CDATA[Cuando termine el <strong> Registro </strong> Contacte con el administrador para que le habilite la cuenta]]></target>
             </trans-unit>
             <trans-unit id="help.show_code">
                 <source>help.show_code</source>
@@ -279,7 +279,7 @@
             </trans-unit>
             <trans-unit id="help.browse_app">
                 <source>help.browse_app</source>
-                <target><![CDATA[Acceder a la <strong>parte pública</strong> de la aplicación de demostración.]]></target>
+                <target><![CDATA[Registrate en la <strong>Aplicacion</strong> ]]></target>
             </trans-unit>
             <trans-unit id="help.browse_admin">
                 <source>help.browse_admin</source>

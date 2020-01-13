@@ -60,7 +60,7 @@ easy_admin:
                     - client
                     # if administrators are allowed to edit users' passwords and roles, add this:
                     - { property: 'plainPassword', type: 'text', type_options: { required: false } }
-                    - { property: 'roles', type: 'choice', type_options: { multiple: true, choices: { 'ADMINISTRADOR': 'ROLE_SUPER_ADMIN', 'USUARIO BASICO': 'ROLE_ADMIN' } } }
+                    - { property: 'roles', type: 'choice', type_options: { multiple: true, choices: { 'ADMINISTRADOR': 'ROLE_ADMIN', 'USUARIO BASICO': 'ROLE_USER' } } }
             delete:
                 role: [ROLE_ADMIN, ROLE_SUPER_ADMIN]
 

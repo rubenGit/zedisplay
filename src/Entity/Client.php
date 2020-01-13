@@ -32,20 +32,16 @@ class Client
      * @var string The company name of the client
      *
      * @ORM\Column(type="string")
+     * @Assert\NotBlank
+
      */
     private $companyName;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(type="string")
-     */
-    private $taxId;
 
     /**
      * @var string The address of the client
      *
      * @ORM\Column(type="string")
+     * @Assert\NotBlank
      */
     private $address;
 
@@ -64,40 +60,12 @@ class Client
     private $postalCode;
 
     /**
-     * @var string The state of the client
-     *
-     * @ORM\Column(type="string")
-     */
-    private $state;
-
-    /**
-     * @var string The country of the client
-     *
-     * @ORM\Column(type="string", length=2)
-     */
-    private $country;
-
-    /**
-     * @var string The name of the client's person of contact
-     *
-     * @ORM\Column(type="string")
-     */
-    private $contactPersonName;
-
-    /**
      * @var string The phone of the client's person of contact
      *
      * @ORM\Column(type="string")
+     * @Assert\NotBlank
      */
     private $contactPersonPhone;
-
-    /**
-     * @var string The email of the client's person of contact
-     *
-     * @ORM\Column(type="string")
-     * @Assert\Email()
-     */
-    private $contactPersonEmail;
 
     /**
      * @ORM\OneToMany(targetEntity="GroupCompany", mappedBy="client")
@@ -154,25 +122,6 @@ class Client
     /**
      * @return string
      */
-    public function getTaxId()
-    {
-        return $this->taxId;
-    }
-
-    /**
-     * @param string $taxId
-     * @return Client
-     */
-    public function setTaxId(string $taxId)
-    {
-        $this->taxId = $taxId;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
     public function getAddress(): ?string
     {
         return $this->address;
@@ -218,53 +167,6 @@ class Client
         $this->postalCode = $postalCode;
     }
 
-    /**
-     * @return string
-     */
-    public function getState(): ?string
-    {
-        return $this->state;
-    }
-
-    /**
-     * @param string $state
-     */
-    public function setState(string $state): void
-    {
-        $this->state = $state;
-    }
-
-    /**
-     * @return string
-     */
-    public function getCountry(): ?string
-    {
-        return $this->country;
-    }
-
-    /**
-     * @param string $country
-     */
-    public function setCountry(string $country): void
-    {
-        $this->country = $country;
-    }
-
-    /**
-     * @return string
-     */
-    public function getContactPersonName(): ?string
-    {
-        return $this->contactPersonName;
-    }
-
-    /**
-     * @param string $contactPersonName
-     */
-    public function setContactPersonName(string $contactPersonName): void
-    {
-        $this->contactPersonName = $contactPersonName;
-    }
 
     /**
      * @return string
@@ -282,25 +184,10 @@ class Client
         $this->contactPersonPhone = $contactPersonPhone;
     }
 
-    /**
-     * @return string
-     */
-    public function getContactPersonEmail(): ?string
-    {
-        return $this->contactPersonEmail;
-    }
-
-    /**
-     * @param string $contactPersonEmail
-     */
-    public function setContactPersonEmail(string $contactPersonEmail): void
-    {
-        $this->contactPersonEmail = $contactPersonEmail;
-    }
 
     public function __toString()
     {
-        return $this->contactPersonEmail;
+        return $this->companyName;
     }
 
     /**
@@ -493,4 +380,6 @@ class Client
 
         return $this;
     }
+
+
 }

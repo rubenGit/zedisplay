@@ -45,20 +45,15 @@ class AppFixtures extends Fixture
         $tbaClient->setCompanyName('tba');
         $tbaClient->setCity('tba');
         $tbaClient->setAddress('tba');
-        $tbaClient->setContactPersonEmail('tba@gmail.com');
         $tbaClient->setContactPersonPhone('111');
-        $tbaClient->setContactPersonName('tba');
-        $tbaClient->setState('Valencia');
-        $tbaClient->setCountry('ES');
         $tbaClient->setPostalCode('000');
-        $tbaClient->setTaxId('000');
         $manager->persist($tbaClient);
 
         $adminTBA = new User();
         $adminTBA->setFullName('EL SUPER ADMIN');
         $adminTBA->setUsername('tba');
         $adminTBA->setEmail('tba@gmail.com');
-        $adminTBA->setPlainPassword($passwordEncoder->encodePassword($adminTBA, 'tba'));
+        $adminTBA->setPlainPassword( 'tba');
         $adminTBA->setPassword($passwordEncoder->encodePassword($adminTBA, 'tba'));
         $adminTBA->setEnabled(true);
         $adminTBA->setRoles(['ROLE_SUPER_ADMIN']);
@@ -76,13 +71,8 @@ class AppFixtures extends Fixture
         $oscarClient->setCompanyName('zinkers');
         $oscarClient->setCity('pedreger');
         $oscarClient->setAddress('12');
-        $oscarClient->setContactPersonEmail('oscar@outlook.es');
         $oscarClient->setContactPersonPhone('111');
-        $oscarClient->setContactPersonName('oscar');
-        $oscarClient->setState('Valencia');
-        $oscarClient->setCountry('ES');
         $oscarClient->setPostalCode('000');
-        $oscarClient->setTaxId('000');
         $manager->persist($oscarClient);
 
         $adminFinca = new User();
@@ -118,13 +108,8 @@ class AppFixtures extends Fixture
         $rubenClient->setCompanyName('google');
         $rubenClient->setCity('benidorm');
         $rubenClient->setAddress('12');
-        $rubenClient->setContactPersonEmail('ruben_m7@outlook.es');
         $rubenClient->setContactPersonPhone('111');
-        $rubenClient->setContactPersonName('ruben');
-        $rubenClient->setState('Valencia');
-        $rubenClient->setCountry('ES');
         $rubenClient->setPostalCode('000');
-        $rubenClient->setTaxId('000');
         $manager->persist($rubenClient);
 
         $adminFinca = new User();
