@@ -71,7 +71,9 @@ easy_admin:
                 fields:
                     - id
                     - name
-                    - contactPersonEmail
+                    - companyName
+                    - city
+
             new:
                 role: ROLE_SUPER_ADMIN
                 fields:
