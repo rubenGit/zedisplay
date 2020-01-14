@@ -38,26 +38,6 @@ class SecurityController extends AbstractController
     public function login(Request $request, Security $security, AuthenticationUtils $helper, SecurityService $securityService): Response
     {
 
-//        $user = $this->get('security.token_storage')->getToken()->getUser();
-//        dump($user); die();
-
-        $username = $request->get('username');
-        $password = $request->get('password');
-        // if user is already logged in, don't display the login page again
-        if ($username & $password) {
-
-
-            $user = $securityService->getUser($username, $password);
-
-            dump($user); die();
-//            $securityService->getUser($request->getUser())
-
-            return $this->redirectToRoute('blog_index');
-        }
-//        if ($security->isGranted('ROLE_SUPER_ADMIN')) {
-//            return $this->redirectToRoute('blog_index');
-//        }
-
         // this statement solves an edge-case: if you change the locale in the login
         // page, after a successful login you are redirected to a page in the previous
         // locale. This code regenerates the referrer URL whenever the login page is
@@ -92,7 +72,7 @@ class SecurityController extends AbstractController
         $form = $this->createForm(UserRegistrationFormType::class);
         $form->handleRequest($request);
 
-        $existCredentialsInDb = null;
+        $existCredentialsInDb = false;
 
         if ($form->isSubmitted() && $form->isValid()) {
 
