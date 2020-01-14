@@ -90,7 +90,6 @@ class SecurityController extends AbstractController
 
 
             if (!$existCredentialsInDb) {
-                $existCredentialsInDb = "Registration Done !!";
                 return $this->redirectToRoute('security_login');
             } else if ($existCredentialsInDb == true) {
                 $existCredentialsInDb = "This user already exists try another username and email";
@@ -98,7 +97,6 @@ class SecurityController extends AbstractController
 
         }
 
-        dump($existCredentialsInDb);
 
         return $this->render('security/register.html.twig', [
             'registrationForm' => $form->createView(),
