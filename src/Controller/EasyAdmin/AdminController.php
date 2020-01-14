@@ -3,6 +3,7 @@
 namespace App\Controller\EasyAdmin;
 
 use App\Entity\Channel;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\EasyAdminController;
 use EasyCorp\Bundle\EasyAdminBundle\Event\EasyAdminEvents;
@@ -24,12 +25,14 @@ class AdminController extends EasyAdminController
     private $security;
     private $idClient;
     private $user;
+    protected $em;
 
-    public function __construct(Security $security)
+    public function __construct(Security $security, EntityManagerInterface $entityManager)
     {
         $this->security = $security;
         $this->idClient =  $this->security->getUser()->getClient();
         $this->user =  $this->security->getUser();
+        $this->em = $entityManager;
     }
 
     /**
@@ -37,7 +40,26 @@ class AdminController extends EasyAdminController
      */
     public function indexAction(Request $request)
     {
+        if($request->get('property') == 'enabled')
+        {
+            $this->enableUser($request->get('id'));
+        }
+
         return parent::indexAction($request);
+    }
+
+    public function enableUser($id)
+    {
+        $repoUser = $this->em->getRepository(User::class);
+
+        $user = $repoUser->findOneBy(['id'=> $id ]);
+
+        $oldEnabledValue = $user->getEnabled();
+
+        $user->setEnabled(!$oldEnabledValue);
+
+        $this->em->persist($user);
+        $this->em->flush();
     }
 
     public function createListQueryBuilder($entityClass, $sortDirection, $sortField = null, $dqlFilter = null)

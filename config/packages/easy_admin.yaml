@@ -77,29 +77,19 @@ easy_admin:
                 fields:
                     - name
                     - companyName
-                    - taxId
                     - address
                     - city
                     - postalCode
-                    - state
-                    - { property: 'country', type: 'country' }
-                    - contactPersonName
                     - contactPersonPhone
-                    - contactPersonEmail
             edit:
                 role: [ROLE_ADMIN, ROLE_SUPER_ADMIN]
                 fields:
                     - name
                     - companyName
-                    - taxId
                     - address
                     - city
                     - postalCode
-                    - state
-                    - { property: 'country', type: 'country' }
-                    - contactPersonName
                     - contactPersonPhone
-                    - contactPersonEmail
             delete:
                 role: ROLE_SUPER_ADMIN
 
