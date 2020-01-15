@@ -235,23 +235,6 @@ class AdminController extends EasyAdminController
      * [***************************************************** filters according to the client *************************************************************]
      */
 
-
-
-    public function createNewUserEntity()
-    {
-
-    }
-
-    public function persistUserEntity($user)
-    {
-        // TODO: PERSIST NEW USER
-    }
-
-    public function updateUserEntity($user)
-    {
-        // TODO: UPDATE NEW USER
-    }
-
     /**
      * @Route("/dashboard", name="dashboard")
      * @param Request $request
