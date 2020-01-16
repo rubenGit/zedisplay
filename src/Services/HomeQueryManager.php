@@ -101,7 +101,7 @@ class HomeQueryManager
         $totalUsers = $this->userRepository->totalUsersOfClient($this->idClient);
 
         if($this->isSuperAdminSupreme)
-            $totalUsers = $this->userRepository->findAll();
+            $totalUsers = $this->userRepository->totalUsers();
 
         return $totalUsers;
 

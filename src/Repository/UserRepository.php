@@ -35,8 +35,18 @@ class UserRepository extends ServiceEntityRepository
     public function totalUsersOfClient($idClient)
     {
         return $this->createQueryBuilder('u')
-            ->andWhere('u.client = :val')
-            ->setParameter('val', $idClient)
+            ->andWhere('u.client = :val AND u.enabled = :enabled')
+            ->setParameters(['val'=> $idClient, 'enabled'=>true])
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function totalUsers()
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.enabled = :enabled')
+            ->setParameters(['enabled'=>true])
             ->getQuery()
             ->getResult()
             ;
