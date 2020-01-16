@@ -68,29 +68,28 @@ class Client
     private $contactPersonPhone;
 
     /**
-     * @ORM\OneToMany(targetEntity="GroupCompany", mappedBy="client", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="GroupCompany", mappedBy="client")
      */
     private $groupCompany;
 
     /**
-     * @ORM\OneToMany(targetEntity="Establishment", mappedBy="client", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Establishment", mappedBy="client")
      */
     private $establishments;
-
     /**
-     * @ORM\OneToMany(targetEntity="Device", mappedBy="client", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Device", mappedBy="client")
      */
     private $devices;
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="client", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\User", mappedBy="client")
      */
     private $users;
     /**
-     *@ORM\OneToMany(targetEntity="App\Entity\Content", mappedBy="client", orphanRemoval=true)
+     *@ORM\OneToMany(targetEntity="App\Entity\Content", mappedBy="client")
      */
     private $contents;
     /**
-     *@ORM\OneToMany(targetEntity="App\Entity\Channel", mappedBy="client", orphanRemoval=true)
+     *@ORM\OneToMany(targetEntity="App\Entity\Channel", mappedBy="client")
      */
     private $channels;
 
