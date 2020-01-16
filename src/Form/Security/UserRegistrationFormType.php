@@ -40,7 +40,7 @@ class UserRegistrationFormType extends AbstractType
         // $builder->add('title', null, ['required' => false, ...]);
 
         $builder
-            ->add('name')
+            ->add('nameClient')
             ->add('companyName')
             ->add('address')
             ->add('city')

@@ -52,7 +52,7 @@ class SecurityService
     public function createUserAndClient($nameClient, $companyName, $address, $city, $postalCode, $contactPersonPhone, $emailUser, $username, $plainPassword)
     {
         $newClient= new Client();
-        $newClient->setName($nameClient);
+        $newClient->setNameClient($nameClient);
         $newClient->setCompanyName($companyName);
         $newClient->setCity($city);
         $newClient->setAddress($address);

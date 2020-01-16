@@ -198,7 +198,7 @@ class AddUserCommand extends Command
 
         //create Client
         $tbaClient= new Client();
-        $tbaClient->setName('tba');
+        $tbaClient->setNameClient('tba');
         $tbaClient->setCompanyName('tba');
         $tbaClient->setCity('tba');
         $tbaClient->setAddress('tba');

@@ -71,14 +71,15 @@ easy_admin:
             list:
                 fields:
                     - id
-                    - name
+                    - nameClient
                     - companyName
                     - city
+                    - contactPersonPhone
 
             new:
                 role: ROLE_SUPER_ADMIN
                 fields:
-                    - name
+                    - nameClient
                     - companyName
                     - address
                     - city
@@ -87,7 +88,7 @@ easy_admin:
             edit:
                 role: [ROLE_ADMIN, ROLE_SUPER_ADMIN]
                 fields:
-                    - name
+                    - nameClient
                     - companyName
                     - address
                     - city

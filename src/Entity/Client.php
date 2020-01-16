@@ -26,7 +26,7 @@ class Client
      * @ORM\Column(type="string")
      * @Assert\NotBlank
      */
-    private $name;
+    private $nameClient;
 
     /**
      * @var string The company name of the client
@@ -375,14 +375,14 @@ class Client
         return $this;
     }
 
-    public function getName(): ?string
+    public function getNameClient(): ?string
     {
-        return $this->name;
+        return $this->nameClient;
     }
 
-    public function setName(string $name): self
+    public function setNameClient(string $nameClient): self
     {
-        $this->name = $name;
+        $this->nameClient = $nameClient;
 
         return $this;
     }

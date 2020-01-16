@@ -41,7 +41,7 @@ class AppFixtures extends Fixture
     private  function setTbaGroup($manager, UserPasswordEncoderInterface $passwordEncoder)
     {
         $tbaClient= new Client();
-        $tbaClient->setName('tba');
+        $tbaClient->setNameClient('tba');
         $tbaClient->setCompanyName('tba');
         $tbaClient->setCity('tba');
         $tbaClient->setAddress('tba');
@@ -67,7 +67,7 @@ class AppFixtures extends Fixture
     private  function setOscarGroup($manager,$passwordEncoder)
     {
         $oscarClient = new Client();
-        $oscarClient->setName('oscar');
+        $oscarClient->setNameClient('oscar');
         $oscarClient->setCompanyName('zinkers');
         $oscarClient->setCity('pedreger');
         $oscarClient->setAddress('12');
@@ -104,7 +104,7 @@ class AppFixtures extends Fixture
     private  function setRubenGroup($manager,$passwordEncoder)
     {
         $rubenClient = new Client();
-        $rubenClient->setName('ruben');
+        $rubenClient->setNameClient('ruben');
         $rubenClient->setCompanyName('google');
         $rubenClient->setCity('benidorm');
         $rubenClient->setAddress('12');

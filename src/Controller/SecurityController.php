@@ -77,7 +77,7 @@ class SecurityController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $existCredentialsInDb = $securityService->ifNotExistPersist(
-                $form->getData()['name'],
+                $form->getData()['nameClient'],
                 $form->getData()['companyName'],
                 $form->getData()['address'],
                 $form->getData()['city'],
