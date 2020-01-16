@@ -249,6 +249,7 @@ class AdminController extends EasyAdminController
                 'totalGroups' => count($homeQueryManager->getTotalGroups()),
                 'totalEstablishments' =>  count($homeQueryManager->getTotalEstablishments()),
                 'totalDevices' =>  count($homeQueryManager->getTotalDevice()),
+                'totalChannels' =>  count($homeQueryManager->getTotalChannels()),
                 'totalContent' =>  count($homeQueryManager->getTotalContent())
             ]
         );

@@ -9,6 +9,7 @@
 namespace App\Services;
 
 
+use App\Entity\Channel;
 use Doctrine\ORM\EntityManager;
 use App\Entity\Content;
 use App\Entity\Device;
@@ -22,6 +23,7 @@ class HomeQueryManager
     private $em;
     private $contentRespository;
     private $deviceRepository;
+    private $channelRepository;
     private $establishmentRepository;
     private $groupRepository;
     private $userRepository;
@@ -37,6 +39,7 @@ class HomeQueryManager
         $this->em = $em;
         $this->contentRespository = $this->em->getRepository(Content::class);
         $this->deviceRepository = $this->em->getRepository(Device::class);
+        $this->channelRepository = $this->em->getRepository(Channel::class);
         $this->establishmentRepository = $this->em->getRepository(Establishment::class);
         $this->groupRepository = $this->em->getRepository(GroupCompany::class);
         $this->userRepository = $this->em->getRepository(User::class);
@@ -60,6 +63,15 @@ class HomeQueryManager
 
         if($this->isSuperAdminSupreme)
             $totalDevices = $this->deviceRepository->findAll();
+
+        return  $totalDevices;
+    }
+    public function getTotalChannels(){
+
+        $totalDevices = $this->channelRepository->totalChannelOfClient($this->idClient);;
+
+        if($this->isSuperAdminSupreme)
+            $totalDevices = $this->channelRepository->findAll();
 
         return  $totalDevices;
     }

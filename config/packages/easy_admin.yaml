@@ -48,9 +48,7 @@ easy_admin:
                     - fullname
                     - username
                     - email
-                    - created
-                    - updated
-                    - lastLogin
+                    - { property: 'enabled', permission: ROLE_SUPER_ADMIN }
                     - roles
             form:
                 fields:
