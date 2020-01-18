@@ -207,6 +207,7 @@ class AddUserCommand extends Command
 
         // create the user and encode its password
         $user = new User();
+        $user->setEnabled(true);
         $user->setFullName($fullName);
         $user->setUsername($username);
         $user->setEmail($email);
