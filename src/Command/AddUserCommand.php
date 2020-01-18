@@ -202,13 +202,8 @@ class AddUserCommand extends Command
         $tbaClient->setCompanyName('tba');
         $tbaClient->setCity('tba');
         $tbaClient->setAddress('tba');
-        $tbaClient->setContactPersonEmail('tba@gmail.com');
         $tbaClient->setContactPersonPhone('111');
-        $tbaClient->setContactPersonName('tba');
-        $tbaClient->setState('Valencia');
-        $tbaClient->setCountry('ES');
         $tbaClient->setPostalCode('000');
-        $tbaClient->setTaxId('000');
 
         // create the user and encode its password
         $user = new User();
